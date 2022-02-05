@@ -2,8 +2,8 @@ import React from 'react'
 import './forminput.css'
 
 const FormInput = (props) => {
-    const {label, onChange,name, id, errorMessage,required,select,options, ...inputProps}= props;
-    console.log("name",name);
+    const {label, type,name,value,onChange, id, errorMessage,required,select,options, ...inputProps}= props;
+    // console.log("name",name);
     if(select){
         return (
             <div className="formInput">
@@ -20,7 +20,7 @@ const FormInput = (props) => {
     return(
         <div className="formInput">
             <label>{label}</label>
-            <input {...inputProps} onChange={onChange} required={required} autoComplete='off'/>
+            <input id={id} name={name} type={type} value={value} onChange={onChange} required={required} autoComplete='off'/>
             <span className='errorMessage'>{errorMessage}</span>
         </div> 
     )

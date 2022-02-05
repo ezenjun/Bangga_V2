@@ -38,8 +38,8 @@ const ManageReservartion = () => {
         bookingPeople:"",
         bookercall:"",
         option:"",
-        payStatus:"",
-        payType:"네이버페이",
+        payStatus:"결제완료",
+        payType:"신용카드",
         payPrice:"",
     })
 
@@ -57,11 +57,35 @@ const ManageReservartion = () => {
                 console.log(error)
             })
     }
-    
+    const postNewReservation = async () => {
+        try {
+          setError(null);
+          setReservList(null);
+          setLoading(true);
+          const response = await axios.post(
+            'http://3.219.192.160:3000/manage_rsv',{
+                //보내고자 하는 데이터 
+            values,
+            space_id:1,
+            user:1,
+          }
+          );
+          console.log(response.data);
+          setReservList(response.data); 
+        } catch (e) {
+          setError(e);
+          console.log('error');
+          console.log(e);
+        }
+        setLoading(false);
+    };
+
+
     const handleSubmit=(e)=>{
         e.preventDefault();
-        axios_post();
+        postNewReservation();
         closeModal();
+        fetchReservationList();
     }
 
     const fetchReservationList = async () => {
@@ -180,16 +204,6 @@ const ManageReservartion = () => {
         },
         {
             id: 9, 
-            select: false,
-            name:"option",
-            type:"text",
-            placeholder:"추가 옵션을 입력하세요",
-            errorMessage:"",
-            label:"추가 옵션",
-            required: true,
-        },
-        {
-            id: 10, 
             select: true,
             name:"payStatus",
             type:"text",
@@ -202,7 +216,7 @@ const ManageReservartion = () => {
             ]
         },
         {
-            id: 11, 
+            id: 10, 
             select: true,
             name:"payType",
             type:"text",
@@ -215,7 +229,7 @@ const ManageReservartion = () => {
             ]
         },
         {
-            id: 12, 
+            id: 11, 
             select: false,
             name:"payPrice",
             type:"text",

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import {useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import BaseCard from '../../../components/Card/BaseCard'
 import Modal from '../../../components/Modal/Modal'
@@ -8,21 +9,16 @@ import { Spin } from 'antd';
 import { useParams } from "react-router";
 
 const Detail = () => {
+    console.log("rendered");
     const [isModify, setIsModify] = useState(false);
     const [values, setValues] = useState({
-        platform: "",
-        space: "",
-        bookerName: "",
-        checkin: "",
-        checkout: "",
-        created: "",
-        bookingPeople: "",
-        bookercall: "",
-        option: "",
-        payStatus: "",
-        payType: "",
-        payPrice: "",
+        returnPrice: "",
+        returnWhy: "", 
     })
+    const onChange = (e) => {
+        setValues({ ...values, [e.target.name]: e.target.value });
+    }
+    console.log(values);
     ////////////////////////////////paystatus/////////////////////////////////////////////////////////
     const [paystatus, setPayStatus] = useState(false); // 결제완료
     const [unpayed, setUnpayedStatus] = useState(false); //미결제
@@ -31,16 +27,52 @@ const Detail = () => {
     console.log("페이스테이터스, 리펀드, 언페이드", paystatus, refund, unpayed)
 
     const changePayStatus = () => {
+        postPayStatus();
         setPayStatus(true);
         setUnpayedStatus(false);
+        // fetchReservationDetail();
         // console.log("paystatus: ",paystatus);
     }
     const changeRefundStatus = () => {
+        postRefundStatus();
         setRefundStatus(true);
         setPayStatus(false);
         // console.log("refundstatus: ",refund);
     }
-
+    const postPayStatus = async () => {
+        try {
+            const response = await axios.post(
+                'http://3.219.192.160:3000/manage_rsv/payment_complete', {
+                //보내고자 하는 데이터 
+                reservation_id: params,
+                payment_id:detail_Info[0].payment_id
+            });
+            setDetailInfo(response.data);
+            console.log("post로 다시 받은거의 data",response.data)
+        }
+        catch (e) {
+            console.log('error');
+            console.log(e);
+        }
+    }
+    const postRefundStatus = async () => {
+        try {
+            const response = await axios.post(
+                'http://3.219.192.160:3000/manage_rsv/payment_cancel', {
+                //보내고자 하는 데이터 
+                reservation_id: params,
+                payStatus:"취소",
+                returnPrice:values.returnPrice,
+                returnWhy:values.returnWhy,
+                payment_id:detail_Info[0].payment_id
+            });
+            setDetailInfo(response.data);
+        }
+        catch (e) {
+            console.log('error');
+            console.log(e);
+        }
+    }
     const handleSubmit = (e) => {
         e.preventDefault();
         changeRefundStatus();
@@ -48,31 +80,24 @@ const Detail = () => {
     }
     ////////////////////////////////paystatus/////////////////////////////////////////////////////////
 
-    const [detail_Info, setReservList] = useState(null);
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState(null);
+    const [detail_Info, setDetailInfo] = useState(null);
     console.log("디테일 인포 : ", detail_Info)
 
     let params = useParams().id;
 
-    const fetchReservationList = async () => {
+    const fetchReservationDetail = async () => {
         try {
-            setError(null);
-            setReservList(null);
-            setLoading(true);
+            setDetailInfo(null);
             const response = await axios.post(
                 'http://3.219.192.160:3000/manage_rsv/detail', {
                 //보내고자 하는 데이터 
                 reservation_id: params
             });
             console.log("response.data: ", response.data);
-            setReservList(response.data);
+            setDetailInfo(response.data);
             console.log("detail_Info: ", detail_Info);
-
-            setLoading(false);
         }
         catch (e) {
-            setError(e);
             console.log('error');
             console.log(e);
         }
@@ -84,29 +109,20 @@ const Detail = () => {
                 setPayStatus(true);
                 setUnpayedStatus(false);
                 setRefundStatus(false);
-                console.log("결제 완료 pay:", paystatus);
-                console.log("결제 완료 unpayed:", unpayed);
-                console.log("결제 완료 refund:", refund);
             } else if (detail_Info[0]?.payStatus === "결제미완료") {
                 setPayStatus(false);
                 setUnpayedStatus(true);
                 setRefundStatus(false);
-                console.log("결제 미완료 pay:", paystatus);
-                console.log("결제 미완료 unpayed:", unpayed);
-                console.log("결제 미완료 refund:", refund);
             } else {
                 setPayStatus(false);
                 setUnpayedStatus(false);
                 setRefundStatus(true);
-                console.log("취소 / 미완료 pay:", paystatus);
-                console.log("취소 / 미완료 unpayed:", unpayed);
-                console.log("취소 / 미완료 refund:", refund);
             }
         }
     }
 
     useEffect(() => {
-        fetchReservationList();
+        fetchReservationDetail();
     }, [])
 
     useEffect(() => {
@@ -119,7 +135,7 @@ const Detail = () => {
         {
             id: 1,
             select: false,
-            name: "paymentStatus",
+            name: "returnWhy",
             type: "text",
             placeholder: "환불사유를 입력하세요.",
             errorMessage: "*필수 입력 사항입니다.",
@@ -130,7 +146,7 @@ const Detail = () => {
         {
             id: 2,
             select: false,
-            name: "payAmount",
+            name: "returnPrice",
             type: "text",
             placeholder: "취소/환불 금액을 입력하세요",
             errorMessage: "*필수 입력 사항입니다.",
@@ -148,19 +164,30 @@ const Detail = () => {
         setModalOpen(false);
     };
 
-    const removeReservation = async function () {
+    /////////////////////////////예약 삭제///////////////////////////////////////////////////////////////////////////
+    const navigate = useNavigate();
+    const removeReservation = () => {
         if (window.confirm('해당 예약을 삭제하시겠습니까?\n삭제된 데이터는 복구할 수 없습니다.')) {
-
+            postDelete();
         }
     }
-
-
-    const onChange = (e) => {
-        e.preventDefault();
-        setValues({ ...values, [e.target.name]: e.target.value });
+    
+    const postDelete= async () => {
+        try {
+            const response = await axios.post(
+                'http://3.219.192.160:3000/manage_rsv/delete', {
+                //보내고자 하는 데이터 
+                reservation_id: params,
+                user: 1
+            });
+            console.log("Delete Complete", response.data);
+            navigate(-1);
+        }
+        catch (e) {
+            console.log('error',e);
+        }
     }
-    console.log(values);
-
+    /////////////////////////////예약 삭제///////////////////////////////////////////////////////////////////////////
 
 
     if (!detail_Info) return (
