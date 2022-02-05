@@ -1,0 +1,52 @@
+[
+    {
+        "id":"kakao1929",
+        "spaceName":"All",
+        "range":"week",
+        "period":["2018-09-19", "2018-09-20", "2018-09-21", "2018-09-22", "2018-09-23", "2018-09-24", "2018-09-25"],
+        "total_payments":[12,3,12,154,5,1,25],
+        "total_reservations":[12,3,12,154,5,1,25], 
+        "total_reservation_finish":[12,3,12,154,5,1,25],
+        "total_reservation_cancel":[12,3,12,154,5,1,25]
+    },
+    {
+        "id":"kakao1929",
+        "spaceName":"유메노이에",
+        "range":"week",
+        "period":["2018-09-19", "2018-09-20", "2018-09-21", "2018-09-22", "2018-09-23", "2018-09-24", "2018-09-25"],
+        "total_payments":[12,3,12,154,5,1,25],
+        "total_reservations":[12,3,12,154,5,1,25], 
+        "total_reservation_finish":[12,3,12,154,5,1,25],
+        "total_reservation_cancel":[12,3,12,154,5,1,25]
+    },
+    {
+        "id":"kakao1929",
+        "spaceName":"산장",
+        "range":"month",
+        "period":["1주", "2주", "3주", "4주"],
+        "total_payments":[12,3,12,154],
+        "total_reservations":[12,3,12,154], 
+        "total_reservation_finish":[12,3,12,154],
+        "total_reservation_cancel":[12,3,12,154]
+    },
+    {
+        "id":"kakao1929",
+        "spaceName":"코알라",
+        "range":"quarter",
+        "period":["11월", "12월", "1월"],
+        "total_payments":[12,3,12,154],
+        "total_reservations":[12,3,12,154], 
+        "total_reservation_finish":[12,3,12,154],
+        "total_reservation_cancel":[12,3,12,154]
+    },
+    {
+        "id":"kakao1929",
+        "spaceName":"사자",
+        "range":"all",
+        "period":["시작달","마지막달(현재달)"],
+        "total_payments":[12,3,12,154],
+        "total_reservations":[12,3,12,154], 
+        "total_reservation_finish":[12,3,12,154],
+        "total_reservation_cancel":[12,3,12,154]
+    }
+]

@@ -1,0 +1,103 @@
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 99;
+    background-color: rgba(0, 0, 0, 0.6);
+  }
+  .modal button {
+    outline: none;
+    cursor: pointer;
+    border: 0;
+  }
+  .modal > section {
+    width: 25%;
+    min-width: 250px;
+    max-height: 90%;
+    margin: 0 auto;
+    padding: 15px;
+    border-radius: 15px;
+    background-color: #fff;
+    animation: modal-show 0.3s;
+    overflow-y: scroll;
+  }
+  .close{
+    position: relative;
+    left: 150px;;
+  }
+  .closebutton{
+    display: block;
+    position: absolute;
+
+    padding: 5px;
+  }
+  .modal>section::-webkit-scrollbar {
+        width: 8px;
+        scroll-behavior: smooth;
+        border-radius: 40px;
+        padding: 0;
+    }
+    .modal>section::-webkit-scrollbar-track {
+        /* background-color: #eeee; */
+    }
+    .modal>section::-webkit-scrollbar-thumb {
+        background-color: #48B6F1;
+        border-radius: 20px;
+        /* margin: 20px; */
+    }
+
+
+
+  .modal > section > header {
+    display: flex;
+    justify-content: center;
+    padding: 3% 6%;
+    background-color: transparent;
+    color: #48B6F1;
+    font-size: 18px;
+    font-weight: bold;
+  }
+  .modal > section > main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    border-top: 1px solid #dee2e6;
+  }
+
+  .submit{
+    padding: 6px 12px;
+    color: #fff;
+    background-color: #48B6F1;
+    border-radius: 5px;
+    font-size: 13px;
+    margin-right: 10px;
+  }
+  .modal.openModal {
+    display: flex;
+    align-items: center;
+    /* 팝업이 열릴때 스르륵 열리는 효과 */
+    animation: modal-bg-show 0.3s;
+  }
+  @keyframes modal-show {
+    from {
+      opacity: 0;
+      margin-top: -50px;
+    }
+    to {
+      opacity: 1;
+      margin-top: 0;
+    }
+  }
+  @keyframes modal-bg-show {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }

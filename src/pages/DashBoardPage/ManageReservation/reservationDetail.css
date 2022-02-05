@@ -1,0 +1,342 @@
+.detailContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    width: 100%;
+    height:100%;
+    padding: 20px;
+}
+.detailWrapper{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    width: 100%;
+    height: 100%;
+}
+
+.detail_left{
+    display: flex;
+    height: 100%;
+    width: 50%;
+    margin-right: 15px;
+}
+
+.detail_right{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 30%;
+    margin-left: 15px;
+    margin-right: 15px;
+}
+
+.bookerInfo{
+    height: 35%;
+    margin-bottom: 20px;
+}
+
+.paymentInfo{
+    height: 65%;
+    margin-bottom: 20px;
+}
+
+.reservInfo{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+.detailLabel{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    background-color: #080083;
+    
+    /* rgba(72, 182, 241, 0.5) */
+    border-radius: 10px 10px 0 0 ;
+    width: 100%;
+    font-size: 18px;
+    font-weight: bold;
+    height: 50px;
+    padding: 30px;
+}
+
+
+.infoContent{
+    display: flex;
+    height: 100%;
+    width: 90%;
+    justify-content: center;
+}
+
+.infowrap{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    justify-content: space-around;
+    padding: 20px;
+}
+
+/* .infoLabel{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: left;
+} */
+
+.infoRow{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    box-sizing: border-box;
+    justify-content: space-between;
+    /* border-bottom: 1px dashed #080083; */
+    padding: 0;
+    margin: 0;
+}
+
+.infoRow>*{
+    padding: 0;
+    margin: 0;
+}
+
+.infoLabel{
+    width: 25%;
+    font-weight: bold;
+    font-size: 16px;
+    /* background-color: #080083; */
+    border: 1px solid #080083;
+    padding: 10px 16px;
+    color: #080083;
+    border-radius: 50px;
+    margin-right: 20px;
+}
+.underLine{
+    border-bottom: 1px dashed #080083;
+}
+.dataLabel{
+    justify-content: flex-end;
+    margin-left: 16px;
+}
+.dataLabel>*{
+    padding:0;
+    margin: 0;
+    color:rgb(119, 119, 119);
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.buttons{
+    display: flex;
+    justify-content:center;
+    align-items: center;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.quickButton{
+    width: 70%;
+}
+.editButton{
+    width: 50%;
+    padding-right: 10px;
+}
+.deleteButton{
+    width: 50%;
+    padding-left: 10px;
+}
+
+.edit{
+    justify-content: space-between;
+    align-items: center;
+    transition: color .2s ease 0s;
+    background-color: white;
+    border: 1px solid rgb(119, 119, 119);
+    color: rgb(119, 119, 119);
+    font-size: 15px;
+    font-weight: bold;
+    width: 100%;
+    box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    padding: 20px 10px;
+}
+
+.edit:hover{
+    background-color: rgb(119, 119, 119);
+    border: 1px solid rgb(119, 119, 119);
+    color: white;
+    cursor: pointer;
+}
+.delete{
+    justify-content: space-between;
+    align-items: center;
+    transition: color .2s ease 0s;
+    background-color: white;
+    border: 1px solid rgb(240, 38, 38);
+    color: red;
+    font-size: 15px;
+    font-weight: bold;
+    width: 100%;
+    box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    padding: 20px 10px;
+}
+
+.delete:hover{
+    background-color: rgb(240, 38, 38);
+    border: 1px solid rgb(240, 38, 38);
+    color: white;
+    cursor: pointer;
+}
+
+.cancelrefund{
+    justify-content: space-between;
+    align-items: center;
+    transition: color .2s ease 0s;
+    /* /background-color: rgb(250, 116, 116); */
+    border: 1px solid rgb(250, 116, 116);
+    color: rgb(250, 116, 116);
+    font-size: 15px;
+    font-weight: bold;
+    width: 70%;
+    box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.1);
+    border-radius: 30px;
+    padding: 8px 10px;
+}
+
+.cancelrefund:hover{
+    background-color: rgb(250, 116, 116);
+    border: 1px solid rgb(250, 116, 116);
+    color: white;
+}
+
+.payComplete{
+    justify-content: space-between;
+    align-items: center;
+    transition: color .2s ease 0s;
+    background-color: #080083;
+    /* border: 1px solid #080083; */
+    color: white;
+    font-size: 15px;
+    font-weight: bold;
+    width: 70%;
+    box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.1);
+    border-radius: 30px;
+    padding: 8px 10px;
+}
+
+.payComplete:hover{
+    background-color: #00BBFF;
+    color: white;
+}
+
+
+
+
+
+.paymentEdit{
+    display: flex;
+    justify-content: center;
+}
+
+.refundedPayment{
+    color: red;
+    font-weight: bold;
+}
+
+.modifyReservationInput{
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px solid rgb(119, 119, 119);
+    margin:0;
+    font-weight: bold;
+    font-size: 14px;
+    color:#00BBFF;
+}
+
+#payMethod{
+    content: '\f078';
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    width: 50%;
+    padding: 15px;
+    margin: 10px 0px;
+    border: 1px solid gray;
+    border-radius: 4px;
+    background-image:
+    linear-gradient(45deg, transparent 50%, gray 50%),
+    linear-gradient(135deg, gray 50%, transparent 50%),
+    linear-gradient(to right, #ccc, #ccc);
+    background-position:
+    calc(100% - 20px) 50%,
+    calc(100% - 15px) 50%,
+    calc(100% - 2.5em) 50%;
+    background-size:
+    5px 5px,
+    5px 5px,
+    1px 1.5em;
+    background-repeat: no-repeat;
+}
+#payMethod:hover{
+    cursor: pointer;
+}
+
+#paymentStatus{
+    content: '\f078';
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    width: 50%;
+    padding: 15px;
+    margin: 10px 0px;
+    border: 1px solid gray;
+    border-radius: 4px;
+    background-image:
+    linear-gradient(45deg, transparent 50%, gray 50%),
+    linear-gradient(135deg, gray 50%, transparent 50%),
+    linear-gradient(to right, #ccc, #ccc);
+    background-position:
+    calc(100% - 20px) 50%,
+    calc(100% - 15px) 50%,
+    calc(100% - 2.5em) 50%;
+    background-size:
+    5px 5px,
+    5px 5px,
+    1px 1.5em;
+    background-repeat: no-repeat;
+}
+#paymentStatus:hover{
+    cursor: pointer;
+}
+
+.editReservationComplete{
+    justify-content: space-between;
+    align-items: center;
+    transition: color .2s ease 0s;
+    background-color: rgb(119, 119, 119);
+    color: white;
+    font-size: 15px;
+    font-weight: bold;
+    width: 100%;
+    /* box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.1); */
+    border:none;
+    border-radius: 10px;
+    margin-right: 10px;
+    padding: 20px 10px;
+}
+
+.editReservationComplete:hover{
+    background-color: #080083;
+    border:none;
+    color: white;
+    cursor: pointer;
+}

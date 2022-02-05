@@ -1,0 +1,21 @@
+[
+    {"id":1,"spaceName":"유메노이에", "spaceActive":true,"spaceType":"파티룸", "cleanActive":true, "depositPrice":30000, "minPeople": 2, "maxPeople":6, "options":"불멍, 바베큐"},
+    {"id":2,"spaceName":"유메노이에", "spaceActive":false,"spaceType":"파티룸", "cleanActive":true, "depositPrice":30000, "minPeople": 2, "maxPeople":6, "options":"불멍, 바베큐"},
+    {"id":3,"spaceName":"유메노이에", "spaceActive":true,"spaceType":"파티룸", "cleanActive":false, "depositPrice":30000, "minPeople": 2, "maxPeople":6, "options":"불멍, 바베큐"},
+    {"id":4,"spaceName":"유메노이에", "spaceActive":true,"spaceType":"파티룸", "cleanActive":true, "depositPrice":30000, "minPeople": 2, "maxPeople":6, "options":"불멍, 바베큐"},
+    {"id":5,"spaceName":"유메노이에", "spaceActive":true,"spaceType":"파티룸", "cleanActive":false, "depositPrice":30000, "minPeople": 2, "maxPeople":6, "options":"불멍, 바베큐"},
+    {"id":6,"spaceName":"유메노이에", "spaceActive":true,"spaceType":"파티룸", "cleanActive":true, "depositPrice":30000, "minPeople": 2, "maxPeople":6, "options":"불멍, 바베큐"},
+    {"id":7,"spaceName":"유메노이에", "spaceActive":false,"spaceType":"파티룸", "cleanActive":true, "depositPrice":30000, "minPeople": 2, "maxPeople":6, "options":"불멍, 바베큐"},
+    {"id":8,"spaceName":"유메노이에", "spaceActive":true,"spaceType":"파티룸", "cleanActive":false, "depositPrice":30000, "minPeople": 2, "maxPeople":6, "options":"불멍, 바베큐"},
+    {"id":9,"spaceName":"유메노이에", "spaceActive":true,"spaceType":"파티룸", "cleanActive":true, "depositPrice":30000, "minPeople": 2, "maxPeople":6, "options":"불멍, 바베큐"},
+    {"id":10,"spaceName":"유메노이에", "spaceActive":true,"spaceType":"파티룸", "cleanActive":false, "depositPrice":30000, "minPeople": 2, "maxPeople":6, "options":"불멍, 바베큐"},
+    {"id":11,"spaceName":"유메노이에", "spaceActive":true,"spaceType":"파티룸", "cleanActive":true, "depositPrice":30000, "minPeople": 2, "maxPeople":6, "options":"불멍, 바베큐"},
+    {"id":12,"spaceName":"유메노이에", "spaceActive":true,"spaceType":"파티룸", "cleanActive":true, "depositPrice":30000, "minPeople": 2, "maxPeople":6, "options":"불멍, 바베큐"},
+    {"id":13,"spaceName":"유메노이에", "spaceActive":false,"spaceType":"파티룸", "cleanActive":false, "depositPrice":30000, "minPeople": 2, "maxPeople":6, "options":"불멍, 바베큐"},
+    {"id":14,"spaceName":"유메노이에", "spaceActive":true,"spaceType":"파티룸", "cleanActive":true, "depositPrice":30000, "minPeople": 2, "maxPeople":6, "options":"불멍, 바베큐"},
+    {"id":15,"spaceName":"유메노이에", "spaceActive":true,"spaceType":"파티룸", "cleanActive":false, "depositPrice":30000, "minPeople": 2, "maxPeople":6, "options":"불멍, 바베큐"},
+    {"id":16,"spaceName":"유메노이에", "spaceActive":true,"spaceType":"파티룸", "cleanActive":true, "depositPrice":30000, "minPeople": 2, "maxPeople":6, "options":"불멍, 바베큐"},
+    {"id":17,"spaceName":"유메노이에", "spaceActive":false,"spaceType":"파티룸", "cleanActive":false, "depositPrice":30000, "minPeople": 2, "maxPeople":6, "options":"불멍, 바베큐"},
+    {"id":18,"spaceName":"유메노이에", "spaceActive":true,"spaceType":"파티룸", "cleanActive":true, "depositPrice":30000, "minPeople": 2, "maxPeople":6, "options":"불멍, 바베큐"}
+
+]

@@ -1,0 +1,127 @@
+.spaceManagement{
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    padding: 20px;
+    height: 100%;
+    width: 100%;
+}
+
+.spaceCard{
+    display: flex;
+    flex-direction: column;
+    width: 100%;;
+}
+.spacelabel{
+    display: flex;
+    justify-content: space-between;
+    color: #6C6C6C;
+    padding: 20px 0 0 20px;
+    font-size: 21px;
+    font-weight: bold;
+    width: 100%;
+}
+
+.spaceList{
+    display: flex;
+    box-sizing: border-box;
+    padding: 20px;
+    height: 100%;
+    width: 100%;
+}
+
+.tablerow:hover{
+    background-color: white;
+    box-shadow: 1px 2px 10px 1px rgba(0, 0, 0, 0.1);
+    padding: 40px;
+}
+
+.eachCard{
+    height: 100%;
+    margin-right:16px;
+}
+
+.spaceName{
+    display: flex;
+    flex-direction: column;
+    font-size: 18px;
+    margin-bottom: 8px;
+}
+
+.spaceInfo{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+}
+.infoLeft{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+.infoRight{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.clean{
+    text-align: center;
+}
+
+.spaceActive{
+    background-color: #080083;
+    color: white;
+    border-radius: 10px;
+}
+.spaceClosed{
+    background-color: #808080;
+    color: white;
+    border-radius: 10px;
+}
+
+.cleanActive{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 15px;
+    height: 15px;
+    background-color: #00BBFF;
+    border-radius: 10px;
+}
+
+.cleanInactive{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 15px;
+    height: 15px;
+    background-color: #494949;
+    border-radius: 10px;
+} 
+
+
+
+
+
+/* .spaceList:hover{
+    transition: color .3s ease 0s;
+    overflow-x: scroll;
+}
+
+.spaceList::-webkit-scrollbar {
+    scroll-behavior: smooth;
+    height: 8px;
+    cursor: pointer;
+}
+.spaceList::-webkit-scrollbar-track {
+    background-color: #eeee;
+    border-radius: 20px;
+}
+.spaceList::-webkit-scrollbar-thumb {
+    background-color: #48B6F1;
+    border-radius: 20px;
+    width: 100px;
+    cursor: pointer;
+} */

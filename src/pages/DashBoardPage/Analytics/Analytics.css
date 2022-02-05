@@ -1,0 +1,161 @@
+.wrapper{
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    padding: 10px;
+    overflow-y: scroll;
+}
+.wrapper::-webkit-scrollbar {
+    display: none;
+  }
+
+.AnalyticsChart{
+    /* align-items: center;
+    justify-content: center; */
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    padding: 10px;
+    
+}
+.AnalyticsChart>*{
+    margin-top: 10px;
+}
+
+.dropDown{
+    display: flex;
+    align-items: right;
+    justify-content: right;
+}
+.drop_layout{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    width: 100%;
+}
+
+.tabs{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    height: 100%;
+    width: 100%;
+}
+.tabs>*{
+    flex: 1 300px;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    margin: 10px;
+    width: 25%;
+}
+
+.charts{
+    display: flex;
+    box-sizing: border-box;
+    padding: 10px;
+    height: 85%;
+    width: auto;
+}
+
+.chart{
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+}
+
+.chartContent{
+    height: 100%;
+    width: 100%;
+}
+
+ul{
+    list-style:none;
+    padding: 0;
+}
+
+.tabs>li{
+    display: flex;
+    justify-content: space-between;
+    box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    padding: 15px 30px;
+    font-weight: bold;
+}
+
+.tabs>li:hover{
+    cursor: pointer;
+    transition: ease .1s;
+    background-color: #080083;
+    border-bottom: 3px solid #080083;
+    color: white;
+}
+.tabs>li:hover>.IconBackground{
+    background-color: white;
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    display: flex;
+    padding: 20px;
+    justify-content: center;
+    align-items: center;
+    border: none;
+}
+
+.tabs>li.is-active{
+    color: white;
+    background-color: #080083;
+    border-bottom: 5px solid #080083;
+}
+.is-active>.IconBackground{
+    background-color: white;
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    display: flex;
+    padding: 20px;
+    justify-content: center;
+    align-items: center;
+    border: none;
+}
+
+
+.analyticsInfo{
+    display: flex;
+    flex-direction: column;
+}
+
+.IconBackground{
+    background-color: white;
+    border: 2px solid #00BBFF;
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    display: flex;
+    padding: 20px;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.Icon{
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+#moneyIcon{
+    width: 100%;
+}
+
+#clickIcon,
+#clipIcon{
+    width: 70%;
+}
+
+#closeIcon{
+    width: 90%;
+}

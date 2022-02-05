@@ -1,0 +1,210 @@
+h1{
+    margin: 0;
+}
+.dashboardWrapper{
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+}
+.wrapper::-webkit-scrollbar {
+    display: none;
+  }
+.dashboard::-webkit-scrollbar {
+    display: none;
+  }
+.dashboard{
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    height: 100%;
+    width: 100%;
+    padding: 20px;
+}
+
+.statCards{
+    display: flex;
+    justify-content: space-between;
+    box-sizing: border-box;
+    flex-wrap: wrap;
+    height: 90px;
+    width: 100%;
+    margin-bottom: 20px;
+}
+.statCards>*{
+    flex: 1 300px;
+    justify-content: space-between;
+    align-items: center;
+    width: 25%;
+}
+.bottom{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    box-sizing: border-box;
+    flex-grow: 0;
+    background-color: white;
+    box-shadow: 0px 2px 10px 1px rgba(0, 0, 0, 0.2);
+    border-radius: 20px;
+    height: 100%;
+    width: 100%;
+    padding: 20px;
+    margin-top: 20px;
+}
+
+.left{
+    /* display: flex;
+    flex-direction: column;
+    flex-grow: 0; */
+    justify-content: space-between;
+    box-sizing: border-box;
+    align-items: center;
+    transition: color .3s ease 0s;
+    background-color: white;
+    /* box-shadow: 0px 2px 10px 1px rgba(0, 0, 0, 0.2); */
+    border-radius: 20px;
+    height: 100%;
+    width: 65%;
+    margin-right: 20px;
+}
+
+.right{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+    width: 30%;
+    transition: color .3s ease 0s;
+}
+
+.label{
+    font-size: 14px;
+    padding:0;
+    margin:4px 0;
+}
+
+.cardLeft{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    font-size: 15px;
+    color: #929292;
+}
+
+.cardRight{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    color: black;
+    font-size: 15px;
+    font-weight: 500;
+}
+
+.appcolor{
+    color: #00BBFF;
+    font-weight: bold;
+}
+
+.title{
+    margin-bottom: 10px;
+    color: #5e5e5e;
+    font-size: 20px;
+    font-weight: 800;
+}
+
+.date{
+    font-size: 17px;
+    margin-bottom: 10px;
+}
+
+.dash{
+    border-bottom: 0.5px dashed rgb(136, 136, 136);
+}
+
+.dailyList{
+    flex-direction: column;
+    box-sizing: border-box;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    scroll-behavior: smooth;
+    scrollbar-width: thin;
+    padding: 16px;
+    justify-content: space-between;
+}
+.dailyList>a>*:hover{
+    transition: color .3s ease 0s;
+    box-shadow: 0px 2px 5px 1px #080083;
+    transition: color .3s ease 0s;
+    cursor: pointer;
+}
+
+.dailyList:hover{
+    transition: color .3s ease 0s;
+    overflow-y: scroll;
+}
+
+.dailyList::-webkit-scrollbar {
+    width: 4px;
+    scroll-behavior: smooth;
+
+}
+.dailyList::-webkit-scrollbar-track {
+    /* background-color: #eeee; */
+}
+.dailyList::-webkit-scrollbar-thumb {
+    background-color: #00BBFF;
+    border-radius: 20px;
+    margin: 20px;
+}
+
+.dailyList::-webkit-scrollbar-button {
+    height: 12px;
+}
+
+.calendarHeaderButtons{
+    color: #080083; 
+    margin: 0;
+}
+
+.currentDay {
+    border-radius: 20%;
+    color: white;
+    background-color: #00BBFF;
+    font-weight: bold;
+    padding: 2px;
+}
+
+.dayCell:has(.currentDay){
+    border: 2px solid #00BBFF;
+}
+
+.modeWrapper>*{
+    padding: 5px 20px;
+}
+.calendarWrapper{
+    font-family: Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, 'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', sans-serif;
+}
+
+.modeButtonActive{
+    color:#00BBFF;
+}
+
+.lastCard{
+    margin-right: 0px !important;
+    padding: 0;
+}
+
+.comparison{
+    padding: 10px;
+    color: #080083;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.calendar{
+    width: 100%;
+    overflow: hidden;
+}
+
