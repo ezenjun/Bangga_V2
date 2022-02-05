@@ -2,12 +2,13 @@ import React from 'react'
 import './forminput.css'
 
 const FormInput = (props) => {
-    const {label, onChange, id, errorMessage,required,select,options, ...inputProps}= props;
+    const {label, onChange,name, id, errorMessage,required,select,options, ...inputProps}= props;
+    console.log("name",name);
     if(select){
         return (
             <div className="formInput">
                 <label>{label}</label>
-                <select name={label} id={label} form="form">
+                <select name={name} id={label} onChange={onChange} form="form">
                     {options.map((option)=>(
                         <option value={option}>{option}</option>
                     ))}

@@ -8,11 +8,11 @@ import reportWebVitals from './reportWebVitals';
 document.title = '방가 | 호스트용 공간관리 대시보드'
 
 ReactDOM.render(
-  <React.StrictMode>
+  // <React.StrictMode>
     <BrowserRouter>
       <App />
-    </BrowserRouter>
-  </React.StrictMode>,
+    </BrowserRouter>,
+  // </React.StrictMode>,
   document.getElementById('root')
 );
 

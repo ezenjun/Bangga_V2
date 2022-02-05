@@ -29,7 +29,7 @@ const customerTableHead = [
 const ManageReservartion = () => {
 
     const [values, setValues]= useState({
-        platform:"",
+        platform:"스페이스클라우드",
         space:"",
         bookerName:"",
         checkin:"",
@@ -39,7 +39,7 @@ const ManageReservartion = () => {
         bookercall:"",
         option:"",
         payStatus:"",
-        payType:"",
+        payType:"네이버페이",
         payPrice:"",
     })
 
@@ -236,8 +236,9 @@ const ManageReservartion = () => {
 
     const onChange= (e)=>{
         setValues({...values,[e.target.name]: e.target.value});
+        console.log(values);
     }
-    console.log(values);
+    // console.log(values);
 
     ///////////////////////Row Click Handler/////////////////////////////////////////////
     const navigate = useNavigate();
@@ -342,7 +343,7 @@ const ManageReservartion = () => {
                     <input type="submit" value="등록하기" className="submitButton"/>
                 </form>
             </Modal>
-            <Modal open={modalOpen} close={closeModal} header="예약등록하기">
+            {/* <Modal open={modalOpen} close={closeModal} header="예약등록하기">
                 <form onSubmit={handleSubmit}>
                     {inputs.map((input)=>(
                         <FormInput 
@@ -358,7 +359,7 @@ const ManageReservartion = () => {
                     ))}
                     <input type="submit" value="등록하기" className="submitButton"/>
                 </form>
-            </Modal>
+            </Modal> */}
           
         </div>
     )
