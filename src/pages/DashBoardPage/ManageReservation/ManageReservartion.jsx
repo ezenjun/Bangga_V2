@@ -34,12 +34,15 @@ const ManageReservartion = () => {
         reservation_checkOut:"",
         reservation_request_date:"",
         bookerName:"",
-        bookercall:"",
+        bookerCall:"",
         bookingPeople:"",
-        reservation_status:"예약완료",
         payStatus:"결제완료",
         payType:"신용카드",
         payPrice:"",
+        payFinish:"-",
+        returnPrice:0,
+        returnDate:"-",
+        returnWhy:null,
     })
 
     ///////////////////////////////////Axios////////////////////////////////////////////// 
@@ -70,7 +73,7 @@ const ManageReservartion = () => {
           }
           );
           console.log(response.data);
-          setReservList(response.data); 
+        //setReservList(response.data); 
         } catch (e) {
           setError(e);
           console.log('error');
@@ -83,6 +86,7 @@ const ManageReservartion = () => {
     const handleSubmit=(e)=>{
         e.preventDefault();
         postNewReservation();
+        console.log("최종 전달할 values: ",values);
         closeModal();
         fetchReservationList();
     }
@@ -194,7 +198,7 @@ const ManageReservartion = () => {
         {
             id: 8, 
             select: false,
-            name:"bookercall",
+            name:"bookerCall",
             type:"text",
             placeholder:"예약자 연락처를 입력하세요",
             errorMessage:"*필수 입력 사항입니다.",
@@ -204,19 +208,6 @@ const ManageReservartion = () => {
         {
             id: 9, 
             select: true,
-            name:"reservation_status",
-            type:"text",
-            placeholder:"예약 상태를 입력하세요",
-            errorMessage:"*필수 입력 사항입니다.",
-            label:"예약 상태",
-            required: true,
-            options:[
-                '예약완료', '예약대기', '예약취소', '이용완료'
-            ]
-        },
-        {
-            id: 10, 
-            select: true,
             name:"payStatus",
             type:"text",
             placeholder:"결제 상태를 입력하세요",
@@ -224,11 +215,14 @@ const ManageReservartion = () => {
             label:"결제 상태",
             required: true,
             options:[
-                '결제완료', '결제대기', '환불완료',
+                '결제완료', '미결제', '환불/취소',
             ]
         },
+    ]
+
+    const payComplete = [
         {
-            id: 11, 
+            id: 10, 
             select: true,
             name:"payType",
             type:"text",
@@ -241,7 +235,7 @@ const ManageReservartion = () => {
             ]
         },
         {
-            id: 12, 
+            id: 11, 
             select: false,
             name:"payPrice",
             type:"text",
@@ -252,6 +246,114 @@ const ManageReservartion = () => {
         }
     ]
 
+    const payIncomplete = [
+        {
+            id: 10, 
+            select: false,
+            name:"payPrice",
+            type:"text",
+            placeholder:"결제 예정 금액을 입력하세요",
+            errorMessage:"*필수 입력 사항입니다.",
+            label:"결제 예정 금액",
+            required: true,
+        }
+    ]
+
+    const refundCancel = [
+        {
+            id: 10, 
+            select: true,
+            name:"payType",
+            type:"text",
+            placeholder:"결제 방식을 입력하세요",
+            errorMessage:"*필수 입력 사항입니다.",
+            label:"결제 방식",
+            required: true,
+            options:[
+                '신용카드', '계좌이체', '네이버페이','카카오페이'
+            ]
+        },
+        {
+            id: 11, 
+            select: false,
+            name:"payPrice",
+            type:"text",
+            placeholder:"결제 금액을 입력하세요",
+            errorMessage:"*필수 입력 사항입니다.",
+            label:"결제 금액",
+            required: true,
+        },
+        {
+            id: 12, 
+            select: false,
+            name:"returnPrice",
+            type:"text",
+            placeholder:"환불 금액을 입력하세요",
+            errorMessage:"*필수 입력 사항입니다.",
+            label:"환불 금액",
+            required: true,
+        },
+        {
+            id: 13, 
+            select: false,
+            name:"returnWhy",
+            type:"text",
+            placeholder:"환불 사유를 입력하세요",
+            errorMessage:"*필수 입력 사항입니다.",
+            label:"환불 사유",
+            required: true,
+        },
+        
+    ]
+
+    const onChange= (e)=>{
+        setValues({...values,[e.target.name]: e.target.value});
+        console.log(values);
+    }
+
+    let paymentInput;
+    if(values['payStatus']==="결제완료"){
+        paymentInput = payComplete.map((input)=>(
+            <FormInput 
+                key={input.id} 
+                select={input.select} 
+                {...input} 
+                value={values[input.name]}
+                errorMessage={input.errorMessage} 
+                options={input.options} 
+                onChange={onChange}
+            >
+            </FormInput>
+        ))
+    }else if(values['payStatus']==="미결제"){
+        paymentInput = payIncomplete.map((input)=>(
+            <FormInput 
+                key={input.id} 
+                select={input.select} 
+                {...input} 
+                value={values[input.name]}
+                errorMessage={input.errorMessage} 
+                options={input.options} 
+                onChange={onChange}
+            >
+            </FormInput>
+        ))
+    }
+    else{//환불/취소
+        paymentInput = refundCancel.map((input)=>(
+            <FormInput 
+                key={input.id} 
+                select={input.select} 
+                {...input} 
+                value={values[input.name]}
+                errorMessage={input.errorMessage} 
+                options={input.options} 
+                onChange={onChange}
+            >
+            </FormInput>
+        ))
+    }
+
     const [modalOpen, setModalOpen] = useState(false);
     const openModal = () => {
         setModalOpen(true);
@@ -260,10 +362,7 @@ const ManageReservartion = () => {
         setModalOpen(false);
     };
 
-    const onChange= (e)=>{
-        setValues({...values,[e.target.name]: e.target.value});
-        console.log(values);
-    }
+    
     // console.log(values);
 
     ///////////////////////Row Click Handler/////////////////////////////////////////////
@@ -366,27 +465,10 @@ const ManageReservartion = () => {
                         >
                         </FormInput>
                     ))}
+                    {paymentInput}
                     <input type="submit" value="등록하기" className="submitButton"/>
                 </form>
             </Modal>
-            {/* <Modal open={modalOpen} close={closeModal} header="예약등록하기">
-                <form onSubmit={handleSubmit}>
-                    {inputs.map((input)=>(
-                        <FormInput 
-                            key={input.id} 
-                            select={input.select} 
-                            {...input} 
-                            value={values[input.name]}
-                            errorMessage={input.errorMessage} 
-                            options={input.options} 
-                            onChange={onChange}
-                        >
-                        </FormInput>
-                    ))}
-                    <input type="submit" value="등록하기" className="submitButton"/>
-                </form>
-            </Modal> */}
-          
         </div>
     )
 }

@@ -11,8 +11,8 @@ input{
     width: 100%;
     padding: 15px;
     margin: 10px 0px;
-    border: 1px solid gray;
-    border-radius: 10px;
+    /* border: 1px solid gray;
+    border-radius: 10px; */
 }
 select{
     content: '\f078';
@@ -20,14 +20,11 @@ select{
     -moz-appearance: none;
     appearance: none;
     width: 100%;
-    padding: 15px;
-    margin: 10px 0px;
-    border: 1px solid gray;
-    border-radius: 10px;
+    border: none;
     background-image:
     linear-gradient(45deg, transparent 50%, gray 50%),
-    linear-gradient(135deg, gray 50%, transparent 50%),
-    linear-gradient(to right, #ccc, #ccc);
+    linear-gradient(135deg, gray 50%, transparent 50%);
+    /* linear-gradient(to right, #ccc, #ccc); */
     background-position:
     calc(100% - 20px) 50%,
     calc(100% - 15px) 50%,
@@ -37,6 +34,8 @@ select{
     5px 5px,
     1px 1.5em;
     background-repeat: no-repeat;
+    font-size: 15px;
+    padding: 10px;
 }
 select:hover{
     cursor: pointer;

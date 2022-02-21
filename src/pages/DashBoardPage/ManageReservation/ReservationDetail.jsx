@@ -76,6 +76,9 @@ const Detail = () => {
         changeRefundStatus();
         closeModal();
     }
+    const closeEdit = (e)=> {
+        setIsModify(false);
+    }
     ////////////////////////////////paystatus/////////////////////////////////////////////////////////
 
     const [detail_Info, setDetailInfo] = useState(null);
@@ -202,66 +205,87 @@ const Detail = () => {
     if (detail_Info !== null) {
         if(payStatusSelected === "결제완료"){
             paymentInput = <div className="infowrap">
-            <div className="infoRow">
-                <p className="infoLabel">결제 상태</p>
-                <select name="payStatus" id="paymentStatus" defaultValue={detail_Info[0]?.payStatus} onChange={handlepayStatusSelect}>
-                    <option value="결제완료">결제완료</option>
-                    <option value="미결제">미결제</option>
-                    <option value="취소">환불/취소</option>
-                </select>
-            </div>
-            <div className="infoRow">
-                <p className="infoLabel">결제 방식</p>
-                <select name="payType" id="payMethod" defaultValue={detail_Info[0]?.payType}>
-                    <option value="계좌이체">계좌이체</option>
-                    <option value="신용카드">신용카드</option>
-                    <option value="네이버페이">네이버페이</option>
-                    <option value="카카오페이">카카오페이</option>
-                </select>
-            </div>
-            <div className="infoRow">
-                <p className="infoLabel">결제 금액</p>
-                <div className="dataLabel">
-                    <input className="modifyReservationInput" name="payPrice" type="text" required='true' autoComplete='off' placeholder={detail_Info[0]?.payPrice+"원"} />
-                </div>
-            </div>
-        </div>
-        }else if(payStatusSelected === "미결제"){
-            paymentInput = <div className="infowrap">
-            <div className="infoRow">
-                <p className="infoLabel">결제 상태</p>
-                <select name="payStatus" id="paymentStatus" defaultValue={detail_Info[0]?.payStatus} onChange={handlepayStatusSelect}>
-                    <option value="결제완료">결제완료</option>
-                    <option value="미결제">미결제</option>
-                    <option value="취소">환불/취소</option>
-                </select>
-            </div>
-            <div className="infoRow">
-                <p className="infoLabel">결제 대기 금액</p>
-                <div className="dataLabel">
-                    <input className="modifyReservationInput" name="payPrice" type="text" required='true' autoComplete='off' placeholder="결제 대기 금액을 입력하세요" />
-                </div>
-            </div>
-        </div>
-        }else{//취소/환불
-            paymentInput = <div className="infowrap">
+            <div className="reservationInfo">
                 <div className="infoRow">
                     <p className="infoLabel">결제 상태</p>
-                    <select name="payStatus" id="paymentStatus" defaultValue={detail_Info[0]?.payStatus} onChange={handlepayStatusSelect}>
-                        <option value="결제완료">결제완료</option>
-                        <option value="미결제">미결제</option>
-                        <option value="취소">환불/취소</option>
-                    </select>
+                    <div className="dataLabel">
+                        <select name="payStatus" id="paymentStatus" defaultValue={detail_Info[0]?.payStatus} onChange={handlepayStatusSelect}>
+                            <option value="결제완료">결제완료</option>
+                            <option value="미결제">미결제</option>
+                            <option value="취소">환불/취소</option>
+                        </select>
+                    </div>
                 </div>
                 <div className="infoRow">
                     <p className="infoLabel">결제 방식</p>
+                    <div className="dataLabel">
                     <select name="payType" id="payMethod" defaultValue={detail_Info[0]?.payType}>
                         <option value="계좌이체">계좌이체</option>
                         <option value="신용카드">신용카드</option>
                         <option value="네이버페이">네이버페이</option>
                         <option value="카카오페이">카카오페이</option>
                     </select>
+                    </div>
                 </div>
+            </div>
+            <div className="reservationInfo">
+                <div className="infoRow">
+                    <p className="infoLabel">결제 금액</p>
+                    <div className="dataLabel">
+                        <input className="modifyReservationInput" name="payPrice" type="text" required='true' autoComplete='off' placeholder={detail_Info[0]?.payPrice+"원"} />
+                    </div>
+                </div>
+            </div>
+        </div>
+        }else if(payStatusSelected === "미결제"){
+            paymentInput = <div className="infowrap">
+            <div className="reservationInfo">
+                <div className="infoRow">
+                    <p className="infoLabel">결제 상태</p>
+                    <div className="dataLabel">
+                        <select name="payStatus" id="paymentStatus" defaultValue={detail_Info[0]?.payStatus} onChange={handlepayStatusSelect}>
+                            <option value="결제완료">결제완료</option>
+                            <option value="미결제">미결제</option>
+                            <option value="취소">환불/취소</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div className="reservationInfo">
+                <div className="infoRow">
+                    <p className="infoLabel">결제 예정 금액</p>
+                    <div className="dataLabel">
+                        <input className="modifyReservationInput" name="payPrice" type="text" required='true' autoComplete='off' placeholder="결제 예정 금액을 입력하세요" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        }else{//취소/환불
+            paymentInput = <div className="infowrap">
+            <div className="reservationInfo">
+                <div className="infoRow">
+                    <p className="infoLabel">결제 상태</p>
+                    <div className="dataLabel">
+                        <select name="payStatus" id="paymentStatus" defaultValue={detail_Info[0]?.payStatus} onChange={handlepayStatusSelect}>
+                            <option value="결제완료">결제완료</option>
+                            <option value="미결제">미결제</option>
+                            <option value="취소">환불/취소</option>
+                        </select>
+                    </div>
+                </div>
+                <div className="infoRow">
+                    <p className="infoLabel">결제 방식</p>
+                    <div className="dataLabel">
+                    <select name="payType" id="payMethod" defaultValue={detail_Info[0]?.payType}>
+                        <option value="계좌이체">계좌이체</option>
+                        <option value="신용카드">신용카드</option>
+                        <option value="네이버페이">네이버페이</option>
+                        <option value="카카오페이">카카오페이</option>
+                    </select>
+                    </div>
+                </div>
+            </div>
+            <div className="reservationInfo">
                 <div className="infoRow">
                     <p className="infoLabel">결제 금액</p>
                     <div className="dataLabel">
@@ -275,21 +299,35 @@ const Detail = () => {
                         <input className="modifyReservationInput" name="returnPrice" type="text" required='true' autoComplete='off' placeholder='환불금액을 입력하세요' />}
                     </div>
                 </div>
-                <div className="infoRow">
+            </div>
+            <div className="reservationInfo">
+                <div className="infoRow_refund">
                     <p className="infoLabel">환불 사유</p>
-                    <div className="dataLabel">
+                    <div className="dataLabel_refund">
                         {detail_Info[0]?.returnWhy ? <input className="modifyReservationInput" name="returnWhy" type="text" required='true' autoComplete='off' placeholder={detail_Info[0]?.returnWhy}/> :
                         <input className="modifyReservationInput" name="returnWhy" type="text" required='true' autoComplete='off' placeholder='환불/취소 사유를 입력하세요'/>}
-                        
                     </div>
                 </div>
             </div>
+        </div>
         }
     }
     
 
-
-
+{/* <div className="reservationInfo">
+    <div className="infoRow">
+        <p className="infoLabel">결제 상태</p>
+        <div className="dataLabel">
+            <p>{detail_Info[0]?.payStatus}</p>
+        </div>
+    </div>
+    <div className="infoRow">
+        <p className="infoLabel">결제 방식</p>
+        <div className="dataLabel">
+            <p>{detail_Info[0]?.payType}</p>
+        </div>
+    </div>
+</div> */}
 
 
     const handleEditSubmit=(e)=>{
@@ -422,117 +460,145 @@ const Detail = () => {
 
 
     if (!detail_Info) return (
-        <div className="reservation">
-            <div className="rsvtop_loading">
-                <div className="spacelabel">
+        <div className="detailContainer">
+            {/* <div className="rsvtop_loading"> */}
+                <div className="reservationLabel">
                     <p>예약현황 </p>
+                    <div className="buttons">
+                        <div className="editButton">
+                            <button className='edit' onClick={() => setIsModify(true)}>예약 수정하기</button>
+                        </div>
+                        <div className="deleteButton">
+                            <button className='delete' onClick={() => removeReservation()}>예약 삭제하기</button>
+                        </div>
+                    </div>
                 </div>
-                <div className="spinner">
-                    <Spin size="large" />
+                <div className="detailWrapper">
+                    <div className="detail_left">
+                        <div className="spinner">
+                            <Spin size="large" />
+                        </div>
+                    </div>
+                    <div className="detail_right">
+                        <div className="spinner">
+                            <Spin size="large" />
+                        </div>
+                    </div>
                 </div>
-            </div>
+                
+                
+            {/* </div> */}
         </div>);
     return (
         <div className="detailContainer">
-            <div className="spacelabel">
+            <div className="reservationLabel">
                 <p>예약현황 </p>
-                
+                <div className="buttons">
+                    {isModify ?'':<div className="editButton">
+                        <button className='edit' onClick={() => setIsModify(true)}>예약 수정하기</button>
+                    </div>}
+                    <div className="deleteButton">
+                        <button className='delete' onClick={() => removeReservation()}>예약 삭제하기</button>
+                    </div>
+                </div>
             </div>
             {isModify ?
                 <form className="detailWrapper" onSubmit={handleEditSubmit}>
                     <div className="detail_left">
-                        <BaseCard padding='0'>
                             <div className="reservInfo">
                                 <div className="detailLabel">
                                     예약 정보
                                 </div>
                                 <div className="infoContent">
                                     <div className="infowrap">
-                                        <div className="infoRow">
-                                            <p className="infoLabel">공간이름</p>
-                                            <div className="dataLabel">
-                                                <p>{detail_Info[0]?.displayName}</p>
+                                        <div className="reservationInfo">
+                                            <div className="infoRow">
+                                                <p className="infoLabel">예약 공간명</p>
+                                                <div className="dataLabel">
+                                                    <p>{detail_Info[0]?.displayName}</p>
+                                                </div>
+                                            </div>
+                                            <div className="infoRow">
+                                                <p className="infoLabel">예약 플랫폼</p>
+                                                <div className="dataLabel" id="select">
+                                                    <select onChange={handlePlatformSelect} name="platform" value={platformSelected}>
+                                                        <option value='스페이스클라우드'>스페이스클라우드</option>
+                                                        <option value='에어비앤비'>에어비앤비</option>
+                                                        <option value='네이버예약'>네이버예약</option>
+                                                    </select>
+                                                </div>
                                             </div>
                                         </div>
-                                        <div className="infoRow">
-                                            <p className="infoLabel">플랫폼</p>
-                                            <div className="dataLabel" id="select">
-                                                <select onChange={handlePlatformSelect} name="platform" value={platformSelected}>
-                                                    <option value='스페이스클라우드'>스페이스클라우드</option>
-                                                    <option value='에어비앤비'>에어비앤비</option>
-                                                    <option value='네이버예약'>네이버예약</option>
-                                                </select>
+                                        <div className="reservationInfo">
+                                            <div className="infoRow">
+                                                <p className="infoLabel">체크인 일정</p>
+                                                <div className="dataLabel">
+                                                    <input className="modifyReservationInput_date" name="reservation_checkIn" type="datetime-local" required='true' autoComplete='off' placeholder='22년 2월 3일 16:00' />
+                                                </div>
+                                            </div>
+                                            <div className="infoRow">
+                                                <p className="infoLabel">체크아웃 일정</p>
+                                                <div className="dataLabel">
+                                                    <input className="modifyReservationInput_date" name="reservation_checkOut" type="datetime-local" required='true' autoComplete='off' placeholder='22년 2월 3일 16:00' />
+                                                </div>
                                             </div>
                                         </div>
-                                        <div className="infoRow">
-                                            <p className="infoLabel">체크인</p>
-                                            <div className="dataLabel">
-                                                <input className="modifyReservationInput" name="reservation_checkIn" type="datetime-local" required='true' autoComplete='off' placeholder='22년 2월 3일 16:00' />
+                                        <div className="reservationInfo">
+                                            <div className="infoRow">
+                                                <p className="infoLabel">예약인원</p>
+                                                <div className="dataLabel">
+                                                    <input className="modifyReservationInput" name="bookingPeople" type="text" required='true' autoComplete='off' placeholder={detail_Info[0]?.bookingPeople+"명"} />
+                                                </div>
                                             </div>
                                         </div>
                                         
-                                        <div className="infoRow">
-                                            <p className="infoLabel">체크아웃</p>
-                                            <div className="dataLabel">
-                                                <input className="modifyReservationInput" name="reservation_checkOut" type="datetime-local" required='true' autoComplete='off' placeholder='22년 2월 3일 16:00' />
-                                            </div>
-                                        </div>
-                                        <div className="infoRow">
-                                            <p className="infoLabel">예약인원</p>
-                                            <div className="dataLabel">
-                                                <input className="modifyReservationInput" name="bookingPeople" type="text" required='true' autoComplete='off' placeholder={detail_Info[0]?.bookingPeople+"명 수정시 숫자만 입력하세요"} />
-                                            </div>
-                                        </div>
                                     </div>
 
                                 </div>
 
                             </div>
-                        </BaseCard>
-                    </div>
-                    <div className="detail_right">
-                        <div className="bookerInfo">
-                            <BaseCard height="100%" padding='0'>
-                                <div className="reservInfo">
-                                    <div className="detailLabel">
-                                        예약자 정보
-                                    </div>
-                                    <div className="infoContent">
-                                        <div className="infowrap">
+                            <div className="reservInfo">
+                                <div className="detailLabel">
+                                    예약자 정보
+                                </div>
+                                <div className="infoContent">
+                                    <div className="infowrap">
+                                        <div className="reservationInfo">
                                             <div className="infoRow">
                                                 <p className="infoLabel">예약자명</p>
                                                 <div className="dataLabel">
-                                                    <input className="modifyReservationInput" name="bookerName" type="text" required='true' autoComplete='off' placeholder='윤태인' />
+                                                <input className="modifyReservationInput" name="bookerName" type="text" required='true' autoComplete='off' placeholder='윤태인' />
                                                 </div>
                                             </div>
                                             <div className="infoRow">
                                                 <p className="infoLabel">연락처</p>
                                                 <div className="underLine"></div>
                                                 <div className="dataLabel">
-                                                    <input className="modifyReservationInput" name="bookerCall" type="text" required='true' autoComplete='off' placeholder='010-2323-2323' />
+                                                <input className="modifyReservationInput" name="bookerCall" type="text" required='true' autoComplete='off' placeholder='010-2323-2323' />
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-
-                            </BaseCard>
                         </div>
+                    </div>
+                    <div className="detail_right">
                         <div className="paymentInfo">
-                            <BaseCard height="100%" padding='0'>
-                                <div className="reservInfo">
-                                    <div className="detailLabel">
-                                        결제 정보
-                                    </div>
-                                    <div className="infoContent">
-                                        {paymentInput}
-                                    </div>
+                            <div className="reservInfo">
+                                <div className="detailLabel">
+                                    결제 정보
                                 </div>
-                            </BaseCard>
+                                <div className="infoContent">
+                                    {paymentInput}
+                                </div>
+                            </div>
                         </div>
-                        <div className="buttons">
+                        <div className="confirmEdit">
                             <div className="editButton">
-                                <input type="submit" value="등록하기" className="editReservationComplete" />
+                                <input type="submit" value="예약 수정하기" className="editReservationComplete" />
+                            </div>
+                            <div className="editButton">
+                                <button className='cancelEdit' onClick={() => closeEdit()}>닫기</button>
                             </div>
                         </div>
                     </div>
@@ -540,13 +606,14 @@ const Detail = () => {
                 :
                 <div className="detailWrapper">
                     <div className="detail_left">
-                        <BaseCard padding='0'>
-                            <div className="reservInfo">
-                                <div className="detailLabel">
-                                    예약 정보
-                                </div>
-                                <div className="infoContent">
-                                    <div className="infowrap">
+                        <div className="reservInfo">
+                            <div className="detailLabel">
+                                예약 정보
+                            </div>
+                            <p className="requestDate">{detail_Info[0]?.reservation_request_date}일에 요청된 예약입니다.</p>
+                            <div className="infoContent">
+                                <div className="infowrap">
+                                    <div className="reservationInfo">
                                         <div className="infoRow">
                                             <p className="infoLabel">플랫폼</p>
                                             <div className="dataLabel">
@@ -559,24 +626,22 @@ const Detail = () => {
                                                 <p>{detail_Info[0]?.displayName}</p>
                                             </div>
                                         </div>
+                                    </div>
+                                    <div className="reservationInfo">
                                         <div className="infoRow">
-                                            <p className="infoLabel">체크인</p>
+                                            <p className="infoLabel">체크인 일정</p>
                                             <div className="dataLabel">
                                                 <p>{detail_Info[0]?.checkIn}</p>
                                             </div>
                                         </div>
                                         <div className="infoRow">
-                                            <p className="infoLabel">체크아웃</p>
+                                            <p className="infoLabel">체크아웃 일정</p>
                                             <div className="dataLabel">
                                                 <p>{detail_Info[0]?.checkOut}</p>
                                             </div>
                                         </div>
-                                        <div className="infoRow">
-                                            <p className="infoLabel">예약요청일</p>
-                                            <div className="dataLabel">
-                                                <p>{detail_Info[0]?.reservation_request_date}</p>
-                                            </div>
-                                        </div>
+                                    </div>
+                                    <div className="reservationInfo">
                                         <div className="infoRow">
                                             <p className="infoLabel">예약인원</p>
                                             <div className="dataLabel">
@@ -584,103 +649,98 @@ const Detail = () => {
                                             </div>
                                         </div>
                                     </div>
-
                                 </div>
-
                             </div>
-                        </BaseCard>
-                    </div>
-                    <div className="detail_right">
-                        <div className="bookerInfo">
-                            <BaseCard height="100%" padding='0'>
-                                <div className="reservInfo">
-                                    <div className="detailLabel">
-                                        예약자 정보
-                                    </div>
-                                    <div className="infoContent">
-                                        <div className="infowrap">
-                                            <div className="infoRow">
-                                                <p className="infoLabel">예약자명</p>
-                                                <div className="dataLabel">
-                                                    <p>{detail_Info[0]?.bookerName}</p>
-                                                </div>
+                        </div>
+                        <div className="reservInfo">
+                            <div className="detailLabel">
+                                예약자 정보
+                            </div>
+                            <div className="infoContent">
+                                <div className="infowrap">
+                                    <div className="reservationInfo">
+                                        <div className="infoRow">
+                                            <p className="infoLabel">예약자명</p>
+                                            <div className="dataLabel">
+                                                <p>{detail_Info[0]?.bookerName}</p>
                                             </div>
-                                            <div className="infoRow">
-                                                <p className="infoLabel">연락처</p>
-                                                <div className="underLine"></div>
-                                                <div className="dataLabel">
-                                                    <p>{detail_Info[0]?.bookerCall}</p>
-                                                </div>
+                                        </div>
+                                        <div className="infoRow">
+                                            <p className="infoLabel">연락처</p>
+                                            <div className="underLine"></div>
+                                            <div className="dataLabel">
+                                                <p>{detail_Info[0]?.bookerCall}</p>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-
-                            </BaseCard>
+                            </div>
                         </div>
+                    </div>
+                    <div className="detail_right">
                         <div className="paymentInfo">
-                            <BaseCard height="100%" padding='0'>
-                                <div className="reservInfo">
-                                    <div className="detailLabel">
-                                        결제 정보
-                                    </div>
-                                    <div className="infoContent">
-                                        <div className="infowrap">
+                            <div className="reservInfo">
+                                <div className="detailLabel">
+                                    결제 정보
+                                </div>
+                                <div className="infoContent">
+                                    <div className="infowrap">
+                                        <div className="reservationInfo">
                                             <div className="infoRow">
                                                 <p className="infoLabel">결제 상태</p>
                                                 <div className="dataLabel">
                                                     <p>{detail_Info[0]?.payStatus}</p>
                                                 </div>
                                             </div>
-                                            {refund ? <div className="infoRow">
-                                                <p className="infoLabel">환불 사유</p>
-                                                <div className="dataLabel">
-                                                    <p>{detail_Info[0]?.returnWhy}</p>
-                                                </div>
-                                            </div> : <div className="infoRow">
+                                            <div className="infoRow">
                                                 <p className="infoLabel">결제 방식</p>
                                                 <div className="dataLabel">
                                                     <p>{detail_Info[0]?.payType}</p>
                                                 </div>
                                             </div>
-                                            }
-
+                                        </div>
+                                        {refund ? <div className="reservationInfo">
                                             <div className="infoRow">
                                                 <p className="infoLabel">결제 금액</p>
                                                 <div className="dataLabel">
                                                     <p>{detail_Info[0]?.payPrice}원</p>
                                                 </div>
                                             </div>
-                                            {refund && <div className="infoRow">
+                                            <div className="infoRow">
                                                 <p className="infoLabel">환불 금액</p>
                                                 <div className="dataLabel">
                                                     <p>{detail_Info[0]?.returnPrice}원</p>
                                                 </div>
-                                            </div>}
-                                            <div className="paymentEdit">
-                                                {paystatus ?
-                                                    <div className="quickButton">
-                                                        {refund ? '' : <button className='cancelrefund' onClick={() => openModal()}>환불 / 취소하기</button>}
-                                                    </div>
-                                                    : <div className="quickButton">
-                                                        {unpayed && <button className='payComplete' onClick={() => changePayStatus()}>결제완료하기</button>}
-                                                        {refund && <div className="refundedPayment">환불/취소 처리된 결제 내역 입니다</div>}
-                                                    </div>
-                                                }
+                                            </div>
+                                        </div>: <div className="reservationInfo">
+                                            <div className="infoRow">
+                                                <p className="infoLabel">결제 금액</p>
+                                                <div className="dataLabel">
+                                                    <p>{detail_Info[0]?.payPrice}원</p>
+                                                </div>
                                             </div>
                                         </div>
+                                        }
+                                        {refund && <div className="infoRow">
+                                            <p className="infoLabel">환불 사유</p>
+                                            <div className="dataLabel">
+                                                <p>{detail_Info[0]?.returnWhy}</p>
+                                            </div>
+                                        </div>}
                                     </div>
                                 </div>
-                            </BaseCard>
+                            </div>
                         </div>
-                        <div className="buttons">
-                            <div className="editButton">
-                                <button className='edit' onClick={() => setIsModify(true)}>예약 수정하기</button>
-                            </div>
-                            <div className="deleteButton">
-                                <button className='delete' onClick={() => removeReservation()}>예약 삭제하기</button>
-                            </div>
-
+                        <div className="paymentEdit">
+                            {paystatus ?
+                                <div className="quickButton">
+                                    {refund ? '' : <button className='cancelrefund' onClick={() => openModal()}>환불 / 취소 하기</button>}
+                                </div>
+                                : <div className="quickButton">
+                                    {unpayed && <button className='payComplete' onClick={() => changePayStatus()}>결제완료 하기</button>}
+                                    {refund && <div className="refundedPayment">환불/취소 처리된 결제 내역 입니다</div>}
+                                </div>
+                            }
                         </div>
                     </div>
                     <div className="modalpopup">
