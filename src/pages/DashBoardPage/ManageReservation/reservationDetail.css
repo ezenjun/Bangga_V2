@@ -1,5 +1,6 @@
 .detailContainer{
     display: flex;
+    background-color:rgb(245, 245, 245) ;
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -10,6 +11,7 @@
 }
 .detailWrapper{
     display: flex;
+    background-color:white;
     flex-direction: row;
     align-items: center;
     justify-content: center;
@@ -109,7 +111,7 @@
 }
 
 .infoLabel{
-    width: 25%;
+    width: 40%;
     font-weight: bold;
     font-size: 16px;
     /* background-color: #080083; */
@@ -133,7 +135,12 @@
     font-size: 16px;
     font-weight: bold;
 }
-
+#select{
+    width: 250px;
+}
+select{
+    padding: 10px !important;
+}
 .buttons{
     display: flex;
     justify-content:center;

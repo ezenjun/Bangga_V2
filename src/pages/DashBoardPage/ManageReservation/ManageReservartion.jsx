@@ -30,14 +30,13 @@ const ManageReservartion = () => {
 
     const [values, setValues]= useState({
         platform:"스페이스클라우드",
-        space:"",
+        reservation_checkIn:"",
+        reservation_checkOut:"",
+        reservation_request_date:"",
         bookerName:"",
-        checkin:"",
-        checkout:"",
-        created:"",
-        bookingPeople:"",
         bookercall:"",
-        option:"",
+        bookingPeople:"",
+        reservation_status:"예약완료",
         payStatus:"결제완료",
         payType:"신용카드",
         payPrice:"",
@@ -63,7 +62,7 @@ const ManageReservartion = () => {
           setReservList(null);
           setLoading(true);
           const response = await axios.post(
-            'http://3.219.192.160:3000/manage_rsv',{
+            'http://3.219.192.160:3000/manage_rsv/create',{
                 //보내고자 하는 데이터 
             values,
             space_id:1,
@@ -155,7 +154,7 @@ const ManageReservartion = () => {
         {
             id: 4, 
             select: false,
-            name:"checkin",
+            name:"reservation_checkIn",
             type:"datetime-local",
             placeholder:"체크인 시간을 선택하세요",
             errorMessage:"*필수 입력 사항입니다.",
@@ -165,7 +164,7 @@ const ManageReservartion = () => {
         {
             id: 5, 
             select: false,
-            name:"checkout",
+            name:"reservation_checkOut",
             type:"datetime-local",
             placeholder:"체크아웃 시간을 선택하세요",
             errorMessage:"*체크인 시간보다 빠를 수 없습니다.",
@@ -175,7 +174,7 @@ const ManageReservartion = () => {
         {
             id: 6, 
             select: false,
-            name:"created",
+            name:"reservation_request_date",
             type:"date",
             placeholder:"예약생성일을 선택하세요",
             errorMessage:"*필수 입력 사항입니다.",
@@ -205,6 +204,19 @@ const ManageReservartion = () => {
         {
             id: 9, 
             select: true,
+            name:"reservation_status",
+            type:"text",
+            placeholder:"예약 상태를 입력하세요",
+            errorMessage:"*필수 입력 사항입니다.",
+            label:"예약 상태",
+            required: true,
+            options:[
+                '예약완료', '예약대기', '예약취소', '이용완료'
+            ]
+        },
+        {
+            id: 10, 
+            select: true,
             name:"payStatus",
             type:"text",
             placeholder:"결제 상태를 입력하세요",
@@ -216,7 +228,7 @@ const ManageReservartion = () => {
             ]
         },
         {
-            id: 10, 
+            id: 11, 
             select: true,
             name:"payType",
             type:"text",
@@ -229,7 +241,7 @@ const ManageReservartion = () => {
             ]
         },
         {
-            id: 11, 
+            id: 12, 
             select: false,
             name:"payPrice",
             type:"text",
@@ -270,7 +282,7 @@ const ManageReservartion = () => {
             return <div className="checkouted">
                 이용완료
             </div>
-        }else if(status === "결제대기"){
+        }else if(status === "예약대기"){
             return <div className="pending">
                 예약대기
             </div>

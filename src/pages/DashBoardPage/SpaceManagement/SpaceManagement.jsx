@@ -16,23 +16,16 @@ const SpaceManagement = () => {
     let params = useParams().id;
     const fetchSpaceList = async () => {
         try {
-          // 요청이 시작 할 때에는 error 와 users 를 초기화하고
-          // setError(null);
             setSpaceList(null);
-            // loading 상태를 true 로 바꿉니다.
-            // setLoading(true);
             const response = await axios.post(
                 'http://3.219.192.160:3000/space',{
-                //보내고자 하는 데이터 
                 user: 1
         }
           );
           console.log("response : ",response.data);
-          setSpaceList(response.data); // 데이터는 response.data 안에 들어있습니다.
+          setSpaceList(response.data); 
         } catch (e) {
-          // setError(e);
         }
-        // setLoading(false);
     };
     
     useEffect(() => {
@@ -41,18 +34,15 @@ const SpaceManagement = () => {
 
 
     const [values, setValues]= useState({
-        platform:"",
-        space:"",
-        bookerName:"",
-        checkin:"",
-        checkout:"",
-        created:"",
-        bookingPeople:"",
-        bookercall:"",
-        option:"",
-        payStatus:"",
-        payType:"",
-        payPrice:"",
+        user:1,
+        displayName:"",
+        platform:"스페이스클라우드",
+        status:"운영중",
+        type:"파티룸",
+        is_Deposit:"네",
+        depositPrice:"",
+        minPeople:"",
+        maxPeople:"",
     })
 
     const inputs =[
@@ -70,7 +60,7 @@ const SpaceManagement = () => {
         {
             id: 2, 
             select: true,
-            name:"spaceType",
+            name:"platform",
             type:"text",
             placeholder:"등록 플랫폼을 선택하세요",
             errorMessage:"*필수 입력 사항입니다.",
@@ -83,7 +73,7 @@ const SpaceManagement = () => {
         {
             id: 3, 
             select: true,
-            name:"spaceType",
+            name:"type",
             type:"text",
             placeholder:"예약 공간의 유형을 입력하세요",
             errorMessage:"*필수 입력 사항입니다.",
@@ -96,6 +86,19 @@ const SpaceManagement = () => {
         {
             id: 4, 
             select: true,
+            name:"status",
+            type:"text",
+            placeholder:"현재 운영 여부를 입력하세요",
+            errorMessage:"*필수 입력 사항입니다.",
+            label:"현재 운영 여부",
+            required: true,
+            options:[
+                '운영중', '운영종료',
+            ],
+        },
+        {
+            id: 5, 
+            select: true,
             name:"is_Deposit",
             type:"text",
             placeholder:"청소보증금 수취 여부를 입력하세요",
@@ -107,7 +110,18 @@ const SpaceManagement = () => {
             ],
         },
         {
-            id: 5, 
+            id: 6, 
+            select: false,
+            name:"depositPrice",
+            type:"text",
+            placeholder:"청소보증금 가격을 입력하세요",
+            errorMessage:"*필수 입력 사항입니다.",
+            label:"청소보증금 가격",
+            required: false,
+            options:[]
+        },
+        {
+            id: 7, 
             select: false,
             name:"minPeople",
             type:"text",
@@ -118,7 +132,7 @@ const SpaceManagement = () => {
             options:[]
         },
         {
-            id: 6, 
+            id: 8, 
             select: false,
             name:"maxPeople",
             type:"text",
@@ -129,6 +143,25 @@ const SpaceManagement = () => {
             options:[]
         },
     ]
+
+    const postNewSpace = async () => {
+        try {
+          setError(null);
+          setLoading(true);
+          const response = await axios.post(
+            'http://3.219.192.160:3000/space/create',{
+                //보내고자 하는 데이터 
+            values,
+          }
+          );
+          console.log(response.data);
+        } catch (e) {
+          setError(e);
+          console.log('error');
+          console.log(e);
+        }
+        setLoading(false);
+    };
 
     const spaceTableHead = [
         '운영상태',
@@ -162,7 +195,7 @@ const SpaceManagement = () => {
 
     const navigate = useNavigate();
     const handleRowClick = (index) => {
-        navigate(`./:${index}`);
+        navigate(`./${index}`);
     } 
 
 
@@ -191,14 +224,38 @@ const SpaceManagement = () => {
 
     const handleSubmit=(e)=>{
         e.preventDefault();
+        if(values['is_Deposit'] === '네'){
+            // setValues({...values,'is_Deposit': 1});
+            values['is_Deposit'] = 1;
+            console.log('보증금 네');
+        }else{
+            // setValues({...values,'is_Deposit': 0});
+            values['is_Deposit'] = 0;
+            values['depositPrice'] = 0;
+            console.log('보증금 아니오');
+        }
+        if(values['status'] === '운영중'){
+            // setValues({...values,'status': 1});
+            values['status'] = 1;
+            console.log('운영중 네');
+        }else{
+            // setValues({...values,'status': 0});
+            values['status'] = 0;
+            console.log('운영중 아니오');
+        }
+        console.log(values);
+        postNewSpace();
+        console.log('post',values);
         alert("공간이 등록되었습니다.");
         closeModal();
+        fetchSpaceList();
     }
 
     const onChange= (e)=>{
+        e.preventDefault();
         setValues({...values,[e.target.name]: e.target.value});
+        console.log(values);
     }
-    console.log(values);
     if (!SpaceList) return (
         <div className="spaceManagement">
             <div className="rsvtop_loading">
@@ -262,7 +319,7 @@ const SpaceManagement = () => {
                 </div>*/}
                 
             </div>
-            {/* <div className="modalpopup">
+            <div className="modalpopup">
                 <Modal open={modalOpen} close={closeModal} header="공간 등록하기">
                     <form onSubmit={handleSubmit}>
                         {inputs.map((input)=>(
@@ -280,7 +337,7 @@ const SpaceManagement = () => {
                         <input type="submit" value="등록하기" className="submitButton"/>
                     </form>
                 </Modal>
-            </div> */}
+            </div>
         </div>
     )
 }

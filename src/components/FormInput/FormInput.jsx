@@ -2,7 +2,7 @@ import React from 'react'
 import './forminput.css'
 
 const FormInput = (props) => {
-    const {label, type,name,value,onChange, id, errorMessage,required,select,options, ...inputProps}= props;
+    const {label, type,name,value,onChange, id, placeholder, errorMessage,required,select,options, ...inputProps}= props;
     // console.log("name",name);
     if(select){
         return (
@@ -20,7 +20,7 @@ const FormInput = (props) => {
     return(
         <div className="formInput">
             <label>{label}</label>
-            <input id={id} name={name} type={type} value={value} onChange={onChange} required={required} autoComplete='off'/>
+            <input id={id} name={name} type={type} value={value} onChange={onChange} required={required} placeholder={placeholder} autoComplete='off'/>
             <span className='errorMessage'>{errorMessage}</span>
         </div> 
     )
