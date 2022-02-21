@@ -294,58 +294,113 @@ const Detail = () => {
 
     const handleEditSubmit=(e)=>{
         e.preventDefault();
-        const reservation_status = e.target.reservation_status.value;
-        const reservation_checkIn = e.target.reservation_checkIn.value;
-        const reservation_checkOut = e.target.reservation_checkOut.value;
-        const platform = e.target.platform.value;
-        const bookerName = e.target.bookerName.value;
-        const bookerCall = e.target.bookerCall.value;
-        const bookingPeople = e.target.bookingPeople.value;
-        const payment_id = 1;
-        const payStatus = e.target.payStatus.value;
-        const payFinish = "-";
-        const payType = e.target.payType.value;
-        const payPrice = e.target.payPrice.value;
-        const returnPrice = e.target.returnPrice.value;
-        const returnDate = "-";
-        const returnWhy = e.target.returnWhy.value;
-        console.log("reservation_status",reservation_status);
-        console.log("reservation_checkIn",reservation_checkIn);
-        console.log("reservation_checkOut",reservation_checkOut);
-        console.log("platform",platform);
-        console.log("bookerName",bookerName);
-        console.log("bookerCall",bookerCall);
-        console.log("bookingPeople",bookingPeople);
-        console.log("payment_id",payment_id);
-        console.log("payStatus",payStatus);
-        console.log("payFinish",payFinish);
-        console.log("payType",payType);
-        console.log("payPrice",payPrice);
-        console.log("returnPrice",returnPrice);
-        console.log("returnDate",returnDate);
-        console.log("returnWhy",returnWhy);
+        var reservation_checkIn=null;
+        var reservation_checkOut=null;
+        var platform=null;
+        var bookerName=null;
+        var bookerCall=null;
+        var bookingPeople=null;
+        var payStatus=null;
+        var payType=null;
+        var payPrice=null;
+        var returnPrice=null;
+        var returnWhy=null;
+
+
+        if(e.target.reservation_checkIn.value){
+            reservation_checkIn = e.target.reservation_checkIn.value;
+            console.log("reservation_checkIn",reservation_checkIn);
+        }
+        if(e.target.reservation_checkOut.value){
+            reservation_checkOut = e.target.reservation_checkOut.value;
+            console.log("reservation_checkOut",reservation_checkOut);
+        }
+        if(e.target.platform.value){
+            platform = e.target.platform.value;
+            console.log("platform",platform);
+        }
+        if(e.target.bookerName.value){
+            bookerName = e.target.bookerName.value;
+            console.log("bookerName",bookerName);
+        }
+        if(e.target.bookerCall.value){
+            bookerCall = e.target.bookerCall.value;
+            console.log("bookerCall",bookerCall);
+        }
+        if(e.target.bookingPeople.value){
+            bookingPeople = e.target.bookingPeople.value;
+            console.log("bookingPeople",bookingPeople);
+        }
+        if(e.target.payStatus.value){
+            payStatus = e.target.payStatus.value;
+            console.log("payStatus",payStatus);
+        }
+        if(payStatusSelected === "환불/취소" || payStatusSelected === "결제완료"){
+            if(e.target.payType.value){
+                payType = e.target.payType.value;
+                console.log("payType",payType);
+            }
+        }
+        
+        if(e.target.payPrice.value){
+            payPrice = e.target.payPrice.value;
+            console.log("payPrice",payPrice);
+        }
+        if(payStatusSelected === "환불/취소"){
+            if(e.target.returnPrice.value){
+                returnPrice = e.target.returnPrice.value;
+                console.log("returnPrice",returnPrice);
+            }
+            if(e.target.returnWhy.value){
+                returnWhy = e.target.returnWhy.value;
+                console.log("returnWhy",returnWhy);
+            }
+        }
         
 
-        // const postEditSpace = async () => {
-        //     try {
-        //         setDetailInfo(null);
-        //         const response = await axios.post(
-        //             'http://3.219.192.160:3000/manage_rsv/update',{
-        //             user: 1,
-        //             space_id:params,
-
-                    
-        //         }
-        //         );
-        //         console.log("edit reservation response : ",response.data);
-        //         window.confirm('예약정보를 수정했습니다');
-        //     } catch (e) {
-        //         console.log("error: ",e);
-        //         window.alert('예약정보를 수정하지 못했습니다.');
-        //     }
-        // }
-        // postEditSpace();
+        const payment_id = detail_Info[0]?.payment_id;
+        const payFinish = "-";
+        const returnDate = "-";
+        console.log("reservation_checkIn",reservation_checkIn);
+        console.log("payment_id",payment_id);
+        console.log("payFinish",payFinish);
+        console.log("returnDate",returnDate);
+        
+        
+        const postEditSpace = async () => {
+            try {
+                setDetailInfo(null);
+                const response = await axios.post(
+                    'http://3.219.192.160:3000/manage_rsv/update',{
+                    user: 1,
+                    space_id:detail_Info[0]?.space_id,
+                    reservation_id:params,
+                    reservation_checkIn:reservation_checkIn,
+                    reservation_checkOut:reservation_checkOut,
+                    platform:platform,
+                    bookerName:bookerName,
+                    bookerCall:bookerCall,
+                    bookingPeople:bookingPeople,
+                    payment_id:payment_id,
+                    payStatus:payStatus,
+                    payFinish:payFinish,
+                    payType:payType,
+                    payPrice:payPrice,
+                    returnDate:returnDate,
+                    returnPrice:returnPrice,
+                    returnWhy:returnWhy,
+                }
+                );
+                console.log("edit reservation response : ",response.data);
+                window.confirm('예약정보를 수정했습니다');
+            } catch (e) {
+                console.log("error: ",e);
+                window.alert('예약정보를 수정하지 못했습니다.');
+            }
+        }
+        postEditSpace();
         setIsModify(false);
+        fetchReservationDetail();
     }
 
     const postDelete= async () => {
@@ -371,15 +426,6 @@ const Detail = () => {
             <div className="rsvtop_loading">
                 <div className="spacelabel">
                     <p>예약현황 </p>
-                    <div className="buttons">
-                        <div className="editButton">
-                            <button className='edit' onClick={() => setIsModify(true)}>예약 수정하기</button>
-                        </div>
-                        <div className="deleteButton">
-                            <button className='delete' onClick={() => removeReservation()}>예약 삭제하기</button>
-                        </div>
-
-                    </div>
                 </div>
                 <div className="spinner">
                     <Spin size="large" />
@@ -390,18 +436,10 @@ const Detail = () => {
         <div className="detailContainer">
             <div className="spacelabel">
                 <p>예약현황 </p>
-                <div className="buttons">
-                    <div className="editButton">
-                        <button className='edit' onClick={() => setIsModify(true)}>예약 수정하기</button>
-                    </div>
-                    <div className="deleteButton">
-                        <button className='delete' onClick={() => removeReservation()}>예약 삭제하기</button>
-                    </div>
-
-                </div>
+                
             </div>
             {isModify ?
-                <form className="detailWrapper" >
+                <form className="detailWrapper" onSubmit={handleEditSubmit}>
                     <div className="detail_left">
                         <BaseCard padding='0'>
                             <div className="reservInfo">
