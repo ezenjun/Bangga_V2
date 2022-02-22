@@ -321,7 +321,7 @@ const SpaceManagement = () => {
             </div>
             <div className="modalpopup">
                 <Modal open={modalOpen} close={closeModal} header="공간 등록하기">
-                    <form onSubmit={handleSubmit}>
+                    <form className="modalForm" onSubmit={handleSubmit}>
                         {inputs.map((input)=>(
                             <FormInput 
                                 key={input.id} 
@@ -334,7 +334,7 @@ const SpaceManagement = () => {
                             >
                             </FormInput>
                         ))}
-                        <input type="submit" value="등록하기" className="submitButton"/>
+                        <input type="submit" value="공간 등록 완료" className="submitButton"/>
                     </form>
                 </Modal>
             </div>

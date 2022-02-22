@@ -50,37 +50,7 @@ const ManageReservartion = () => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
 
-    const axios_post = () => {
-        axios.post("http://localhost:8080/post", values)
-            .then((response)=> {
-                console.log(response)
-            })
-            .catch((error)=> {
-                console.log(error)
-            })
-    }
-    const postNewReservation = async () => {
-        try {
-          setError(null);
-          setReservList(null);
-          setLoading(true);
-          const response = await axios.post(
-            'http://3.219.192.160:3000/manage_rsv/create',{
-                //보내고자 하는 데이터 
-            values,
-            space_id:1,
-            user:1,
-          }
-          );
-          console.log(response.data);
-        //setReservList(response.data); 
-        } catch (e) {
-          setError(e);
-          console.log('error');
-          console.log(e);
-        }
-        setLoading(false);
-    };
+    
 
 
     const handleSubmit=(e)=>{
@@ -111,7 +81,28 @@ const ManageReservartion = () => {
         }
         setLoading(false);
     };
-    
+    const postNewReservation = async () => {
+        try {
+          setError(null);
+          setReservList(null);
+          setLoading(true);
+          const response = await axios.post(
+            'http://3.219.192.160:3000/manage_rsv/create',{
+                //보내고자 하는 데이터 
+            values,
+            space_id:2,
+            user:1,
+          }
+          );
+          console.log(response.data);
+        //setReservList(response.data); 
+        } catch (e) {
+          setError(e);
+          console.log('error');
+          console.log(e);
+        }
+        setLoading(false);
+    };
     useEffect(() => {
         fetchReservationList();
     }, []);
@@ -158,6 +149,16 @@ const ManageReservartion = () => {
         {
             id: 4, 
             select: false,
+            name:"bookerCall",
+            type:"text",
+            placeholder:"예약자 연락처를 입력하세요",
+            errorMessage:"*필수 입력 사항입니다.",
+            label:"예약자 연락처",
+            required: true,
+        },
+        {
+            id: 5, 
+            select: false,
             name:"reservation_checkIn",
             type:"datetime-local",
             placeholder:"체크인 시간을 선택하세요",
@@ -166,7 +167,7 @@ const ManageReservartion = () => {
             required: true,
         },
         {
-            id: 5, 
+            id: 6, 
             select: false,
             name:"reservation_checkOut",
             type:"datetime-local",
@@ -176,7 +177,7 @@ const ManageReservartion = () => {
             required: true,
         },
         {
-            id: 6, 
+            id: 7, 
             select: false,
             name:"reservation_request_date",
             type:"date",
@@ -186,7 +187,7 @@ const ManageReservartion = () => {
 ,            required: true,
         },
         {
-            id: 7, 
+            id: 8, 
             select: false,
             name:"bookingPeople",
             type:"text",
@@ -195,16 +196,7 @@ const ManageReservartion = () => {
             label:"예약 인원",
             required: true,
         },
-        {
-            id: 8, 
-            select: false,
-            name:"bookerCall",
-            type:"text",
-            placeholder:"예약자 연락처를 입력하세요",
-            errorMessage:"*필수 입력 사항입니다.",
-            label:"예약자 연락처",
-            required: true,
-        },
+        
         {
             id: 9, 
             select: true,
@@ -375,7 +367,7 @@ const ManageReservartion = () => {
     const reservationStatus = (status) =>{
         if(status === "예약완료"){
             return <div className="complete">
-                에약완료
+                예약완료
             </div>
         }else if(status === "이용완료"){
             return <div className="checkouted">
@@ -452,7 +444,7 @@ const ManageReservartion = () => {
                 />
             </div>
             <Modal open={modalOpen} close={closeModal} header="예약등록하기">
-                <form onSubmit={handleSubmit}>
+                <form className="modalForm" onSubmit={handleSubmit}>
                     {inputs.map((input)=>(
                         <FormInput 
                             key={input.id} 
@@ -466,7 +458,7 @@ const ManageReservartion = () => {
                         </FormInput>
                     ))}
                     {paymentInput}
-                    <input type="submit" value="등록하기" className="submitButton"/>
+                    <input type="submit" value="예약등록완료" className="submitButton"/>
                 </form>
             </Modal>
         </div>

@@ -28,8 +28,14 @@
 
 .dropDown{
     display: flex;
-    align-items: right;
-    justify-content: right;
+    width: 100%;
+    align-items: left;
+    justify-content: space-between;
+}
+.labelText{
+    margin:0;
+    padding:10px;
+    width: 100px;
 }
 .drop_layout{
     display: flex;

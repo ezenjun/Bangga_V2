@@ -1,4 +1,5 @@
-import React, {useState} from 'react';
+import React, {useState,useEffect} from 'react';
+import axios from 'axios';
 import BaseCard from '../../../components/Card/BaseCard'
 import Chart from "react-apexcharts";
 import click from '../../../assets/icon/click.png';
@@ -6,6 +7,7 @@ import money from '../../../assets/icon/money.png';
 import clipboard from '../../../assets/icon/clipboard.png';
 import close from '../../../assets/icon/close.png';
 import DropDown from '../../../components/DropDown/DropDown'
+import { Spin } from 'antd';
 import './Analytics.css'
 
 
@@ -16,7 +18,7 @@ const Analytics = () => {
     
 
     const [activeIndex, setActiveIndex]=useState(0);
-    const [selectedRange, setSelectedRange]=useState("주간");
+    const [selectedRange, setSelectedRange]=useState("1주간");
     const [selectedSpace, setSelectedSpace]=useState("전체공간");
 
     const analyticsData = [{
@@ -131,54 +133,101 @@ const Analytics = () => {
         "increase_reservation_cancel":false,
     }]
 
-    const data=[]
-    const avgData=[]
-    const changeData=[]
-    const increase=[]
-    analyticsData.map((item)=>{
-        if(item.spaceName === selectedSpace && item.range===selectedRange){
-            avgData[0]= item.avg_payments;
-            avgData[1]= item.avg_reservations;
-            avgData[2]= item.avg_reservation_finish;
-            avgData[3]= item.avg_reservation_cancel;
-            changeData[0]=item.change_payments;
-            changeData[1]=item.change_reservation_finish;
-            changeData[2]=item.change_payments;
-            changeData[3]=item.change_reservation_cancel;
-            increase[0]=item.increase_payments;
-            increase[1]=item.increase_reservation_finish;
-            increase[2]=item.increase_payments;
-            increase[3]=item.increase_reservation_cancel;
+    const [analytics_list, setAnalyticsList] = useState(null);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(null);
+    const fetchAnalyticsList = async () => {
+        try {
+          setError(null);
+          setAnalyticsList(null);
+          setLoading(true);
+          const response = await axios.post(
+            'http://3.219.192.160:3000/analytics',{
+            user: 1
+          }
+          );
+          console.log("아날리틱스 리퀘스트",response.data);
+          setAnalyticsList(response.data); 
+        } catch (e) {
+          setError(e);
+          console.log('error');
+          console.log(e);
         }
-    })
+        setLoading(false);
+    };
+    
+    useEffect(() => {
+        fetchAnalyticsList();
+    }, []);
+    console.log("아날리틱스 리퀘스트",analytics_list);
+    const data=[];
+    const avgData=[];
+    const changeData=[];
+    const increase=[];
+    // if (analytics_list!==null) {
+    //     analytics_list.map((item)=>{
+    //         if(item.spaceName === selectedSpace && item.range===selectedRange){
+    //             avgData[0]= item.avg_payments;
+    //             avgData[1]= item.avg_reservations;
+    //             avgData[2]= item.avg_reservation_finish;
+    //             avgData[3]= item.avg_reservation_cancel;
+    //             changeData[0]=item.change_payments;
+    //             changeData[1]=item.change_reservation_finish;
+    //             changeData[2]=item.change_payments;
+    //             changeData[3]=item.change_reservation_cancel;
+    //             increase[0]=item.increase_payments;
+    //             increase[1]=item.increase_reservation_finish;
+    //             increase[2]=item.increase_payments;
+    //             increase[3]=item.increase_reservation_cancel;
+    //         }
+    //     })
+    // }
 
     const tabClickHandler=(index)=>{
         setActiveIndex(index);
     };
 
+    if (!analytics_list) 
+        return (
+        <div className="reservation">
+            <div className="rsvtop_loading">
+                <div className="label">
+                    <p>통계관리 </p>
+                </div>
+                <div className="spinner">
+                    <Spin size="large"/>
+                </div>
+                
+            </div>
+            
+        </div>
+    ) ;
     return (
         <div className="wrapper">
             <div className="AnalyticsChart">
                 <div className="dropDown">
-                    <div className="drop_layout">
-                        <DropDown items={['주간', '월간', '분기', '전체']} selected={selectedRange} setSelected={setSelectedRange}/>
-                        <DropDown items={['전체공간', '유메노이에', '수작', '산장']} selected={selectedSpace} setSelected={setSelectedSpace}/>
+                    <div className="label">
+                        <div className='labelText'>통계관리</div>
+                        <div className="drop_layout">
+                            <DropDown items={['1주간', '1달간', '전체기간']} selected={selectedRange} setSelected={setSelectedRange}/>
+                            <DropDown items={['전체공간', '애오개애호', '7층카페', '내펜션이짱']} selected={selectedSpace} setSelected={setSelectedSpace}/>
+                        </div>
                     </div>
                 </div>
                 <div className="tab">
                     <ul className='tabs'>
                         {label.map((item, index)=>{
-                            return <li className={activeIndex===index ? "is-active" : ""} key="cancel" onClick={()=>tabClickHandler(index)}> 
+                            return <li className={activeIndex===index ? "is-active" : ""} key={index} onClick={()=>tabClickHandler(index)}> 
                                         <div className="analyticsInfo">
                                             <div className="analyticsLabel">
                                                 {item}
                                             </div>
                                             <div className="analyticsData">
-                                                {avgData[index]}
+                                                {/* {avgData[index]} */}
                                             </div>
                                             <div className="change">
-                                                {changeData[index]}%
-                                                {increase[index] ? ' 증가' : ' 감소'}
+                                                {/* {changeData[index]}%
+                                                {increase[index] ? ' 증가' : ' 감소'} */}
                                             </div>
                                         </div>
                                         <div className="IconBackground" >
@@ -192,33 +241,34 @@ const Analytics = () => {
                     <div className="chartContent">
                         <BaseCard height="100%" width="100%">
                             <div className="chart" >
-                                {analyticsData.map((item)=>{
-                                    if(item.spaceName === selectedSpace && item.range===selectedRange){
+                                {analytics_list.map((item,index)=>{
+                                    if(item.spaceName === selectedSpace &&item.range &&item.range===selectedRange){
                                         data[0]= item.total_payments;
                                         data[1]= item.total_reservations;
                                         data[2]= item.total_reservation_finish;
                                         data[3]= item.total_reservation_cancel;
+                                        console.log("item.period",item.period);
                                         return (
-                                            <Chart 
-                                                    options={{
-                                                        colors: ['#080083', '#00BBFF'],
-                                                        dataLabels: {enabled: false},
-                                                        stroke: {curve: 'smooth'},
-                                                        xaxis: {type: 'datetime',categories: item.period,  tickPlacement: 'on',axisTicks:{show: false}},
-                                                        tooltip: {x: {format: 'yyyy/MM/dd'},
-                                                        tickPlacement: 'on',
-                                                        legend: {show: false,}},
-                                                        fill: {type: 'gradient'}
-                                                    }} 
-                                                    
-                                                    series={[{name: label[activeIndex], data: data[activeIndex]}]} 
-                                                    type="area" 
-                                                    width={'100%'} 
-                                                    height={'100%'}
-                                                />
+                                            <Chart key={index}
+                                                options={{
+                                                    colors: ['#080083', '#00BBFF'],
+                                                    dataLabels: {enabled: false},
+                                                    stroke: {curve: 'smooth'},
+                                                    xaxis: {type: 'datetime',categories: item.period,  tickPlacement: 'on',axisTicks:{show: false}},
+                                                    tooltip: {x: {format: 'yyyy/MM/dd'},
+                                                    tickPlacement: 'on',
+                                                    legend: {show: false,}},
+                                                    fill: {type: 'gradient'}
+                                                }} 
+                                                series={[{name: label[activeIndex], data: data[activeIndex]}]} 
+                                                type="area" 
+                                                width={'100%'} 
+                                                height={'100%'}
+                                            />
                                         )
                                     }
-                                })}
+                                }
+                                )}
                                 
                             </div>
                         </BaseCard>

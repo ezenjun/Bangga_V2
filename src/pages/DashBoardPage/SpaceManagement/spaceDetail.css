@@ -50,7 +50,7 @@
     width: 100%;
     font-size: 18px;
     font-weight: bold;
-    color: #00bbff;
+    color: #080083;
 }
 
 .infoLabelText{
@@ -78,7 +78,7 @@
     width: 100%;
     font-size: 18px;
     font-weight: bold;
-    color: #00bbff;
+    color: #080083;
 }
 
 .LabelSpaceName{
@@ -119,7 +119,7 @@
 }
 
 .editSpace:hover{
-    background-color: #00bbff;
+    background-color: #080083;
     border: none;
     color: white;
     cursor: pointer;
@@ -172,7 +172,7 @@
 }
 
 .editSpaceComplete:hover{
-    background-color: #00bbff;
+    background-color: #080083;
     border:none;
     color: white;
     cursor: pointer;

@@ -18,7 +18,6 @@ const Modal = (props) => {
                     <main>
                         {props.children}
                     </main>
-                    <button onClick={close}>닫기</button>
                 </section>
             ) : null}
         </div>

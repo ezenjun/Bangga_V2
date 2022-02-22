@@ -6,45 +6,66 @@ import BaseCard from '../../../components/Card/BaseCard'
 import './main.css';
 import reserv_list from '../../../assets/JSON/reservation.json';
 import { Link } from 'react-router-dom';
+import { Spin } from 'antd';
 
 
+const colors=['#44B6D1','#080083','green','orange'];
 
-const events = [{
-    id: 1,
-    color: '#44B6D1',
-    from: '2022-01-01T18:00:00+00:00',
-    to: '2022-01-05T19:00:00+00:00',
-    title: '산장 3명'
-}, {
-    id: 2,
-    color: '#080083',
-    from: '2022-01-08T13:00:00+00:00',
-    to: '2022-01-12T14:00:00+00:00',
-    title: '유메노이에 5명'
-}, {
-    id: 3,
-    color: 'orange',
-    from: '2022-01-26T13:00:00+00:00',
-    to: '2022-01-27T14:00:00+00:00',
-    title: 'This is also another event'
-},
-];
+// const events = [{
+//     id: 1,
+//     color: colors[0],
+//     from: '2022-01-01T18:00:00+00:00',
+//     to: '2022-01-05T19:00:00+00:00',
+//     title: '산장 3명'
+// }, {
+//     id: 2,
+//     color: 'pink',
+//     from: '2022-03-01T19:54:00.000Z',
+//     to: '2022-03-10T19:54:00.000Z',
+//     title: '유메노이에 5명'
+// }, {
+//     id: 3,
+//     color: 'orange',
+//     from: '2022-01-26T13:00:00+00:00',
+//     to: '2022-01-27T14:00:00+00:00',
+//     title: 'This is also another event'
+// },
+// ];
 
 const Main = () => {
     const [reservation_list, setDailyReservList] = useState(null);
+    const [calendar_list, setCalendarList] = useState(null);
     // const [loading, setLoading] = useState(false);
     // const [error, setError] = useState(null);
 
-    const fetchDailyReservationList =() => {
+    const fetchDailyReservationList = async() => {
         try {
           setDailyReservList(null);
-          const response = axios.post(
+          const response = await axios.post(
             'http://3.219.192.160:3000/manage_rsv/today',{
             user: 1
         }
           );
           setDailyReservList(response.data); // 데이터는 response.data 안에 들어있습니다.
+          console.log("daily",response.data);
         } catch (e) {
+          // setError(e);
+        }
+        // setLoading(false);
+    };
+    const fetchCalendarList =async() => {
+        try {
+            setCalendarList(null);
+            const response = await axios.post(
+            'http://3.219.192.160:3000/manage_rsv/calendar',{
+            user: 1
+        }
+          );
+          setCalendarList(response.data); // 데이터는 response.data 안에 들어있습니다.
+          console.log("response",response.data);
+          console.log("calendar",calendar_list);
+        } catch (e) {
+            console.log(e);
           // setError(e);
         }
         // setLoading(false);
@@ -52,60 +73,32 @@ const Main = () => {
     
     useEffect(() => {
         fetchDailyReservationList();
+        fetchCalendarList();
     }, []);
 
+    // id: 3,
+    // color: 'orange',
+    // from: '2022-01-26T13:00:00+00:00',
+    // to: '2022-01-27T14:00:00+00:00',
+    // title: 'This is also another event'
+    const eventData=[];
+    if(calendar_list){
+        calendar_list.map((item,index)=>{
+            var id="";
+            id = item.id;
+            eventData.push({
+                id : item.id,
+                from : item.from,
+                to : item.to,
+                title : item.displayName +' '+item.bookingPeople+'명',
+                color : colors[id%4],
+            })
+        }
+        )
+    }
+    console.log("eventData",eventData);
+
     console.log("reservationList",reservation_list)
-    
-
-    // const [StatusCard, setStatusCard] = useState(null);
-    // // const [loading, setLoading] = useState(false);
-    // // const [error, setError] = useState(null);  
-    // const fetchStatusCard = async () => {
-    //     try {
-    //       // 요청이 시작 할 때에는 error 와 users 를 초기화하고
-    //     //   setError(null);
-    //       setStatusCard(null);
-    //       // loading 상태를 true 로 바꿉니다.
-    //     //   setLoading(true);
-    //       const response = await axios.get(
-    //         ''
-    //       );
-    //       setStatusCard(response.data); // 데이터는 response.data 안에 들어있습니다.
-    //     } catch (e) {
-    //       setError(e);
-    //     }
-    //     setLoading(false);
-    // };
-    
-    //   useEffect(() => {
-    //     fetchStatusCard();
-    //   }, []);
-
-    // const [calendarEvents, setCalendarEvents] = useState(null);
-    // const [loading, setLoading] = useState(false);
-    // const [error, setError] = useState(null);  
-    // const fetchCalendarEvents = async () => {
-    //     try {
-    //       // 요청이 시작 할 때에는 error 와 users 를 초기화하고
-    //     //   setError(null);
-    //     setCalendarEvents(null);
-    //       // loading 상태를 true 로 바꿉니다.
-    //     //   setLoading(true);
-    //       const response = await axios.get(
-    //         ''
-    //       );
-    //       setCalendarEvents(response.data); // 데이터는 response.data 안에 들어있습니다.
-    //     } catch (e) {
-    //       setError(e);
-    //     }
-    //     setLoading(false);
-    // };
-    
-    // useEffect(() => {
-    //     // fetchDailyReservationList();
-    //     fetchStatusCard();
-    //     fetchCalendarEvents();
-    // }, []);
 
     return (
         <div className="dashboardWrapper">
@@ -119,7 +112,11 @@ const Main = () => {
                 <div className="bottom">
                     <div className="left">
                         <div className="calendar">
-                            <Calendar events={events} />
+                            {calendar_list?<Calendar events={eventData} />:
+                            // <div className="spinner">
+                                <Spin size="large"/>
+                            // </div>
+                            }
                         </div>
                         
                     </div>

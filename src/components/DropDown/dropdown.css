@@ -6,6 +6,7 @@
 }
 
 .dropdown .dropdown-btn{
+    font-size: 15px;
     padding: 10px 20px;
     background-color: #fff;
     box-shadow: 3px 3px 10px 6px rgba(0,0,0,0.06);
@@ -21,7 +22,7 @@
 .dropdown .dropdown-content{
     position: absolute;
     border-radius: 10px;
-    top: 110%;
+    top: 60%;
     left: 0;
     padding: 10px;
     background: #fff;
